@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:h2o/provider/auth_token_provider.dart';
-import 'package:h2o/screens/home_screen/home_screen.dart';
+import 'package:h2o/screens/splash_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
           ),
           useMaterial3: true,
         ),
-        home: const Home(),
+        home: SplashScreen(),
       ),
     );
   }

@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:h2o/screens/home_screen/home_screen.dart';
 import 'package:h2o/screens/sign_up_screen.dart';
 import 'package:h2o/widgets/primary_button.dart';
 import 'package:provider/provider.dart';
@@ -13,7 +14,6 @@ import '../models/user_data_model.dart';
 import '../models/user_data_storage.dart';
 import '../provider/auth_token_provider.dart';
 import '../widgets/custom_textfield.dart';
-import 'connected_friends_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -42,25 +42,25 @@ class _LoginScreenState extends State<LoginScreen> {
     LoginResponse? loginResponse =
         await authService.loginUser(username, password);
 
-    if (loginResponse != null) {
-      toggleLogin();
-      print("Login successful!");
-      print("Message: ${loginResponse.message}");
-      // print("Token: ${loginResponse.token}");
-      // Add your navigation logic or other actions here
+    // if (loginResponse != null) {
+    toggleLogin();
+    print("Login successful!");
+    // print("Message: ${loginResponse.message}");
+    // print("Token: ${loginResponse.token}");
+    // Add your navigation logic or other actions here
 
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) => ConnectedFriendsScreen(),
-          // builder: (context) => FindFriendsScreen(),
-        ),
-      );
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => Home(),
+        // builder: (context) => FindFriendsScreen(),
+      ),
+    );
 
-      getUserData(loginResponse.token);
-    } else {
-      print("Login failed.");
-      // Add error handling or display an error message
-    }
+    // getUserData(loginResponse.token);
+    // } else {
+    //   print("Login failed.");
+    //   // Add error handling or display an error message
+    // }
   }
 
   void getUserData(authToken) async {
