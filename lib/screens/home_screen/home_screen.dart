@@ -20,10 +20,21 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     // add Cupertino app bar
-    return CupertinoApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Dashboard',
-      home: CupertinoTabScaffold(
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Dashboard'),
+        backgroundColor: Colors.white,
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(
+              CupertinoIcons.bell,
+              color: Colors.white,
+            ),
+          ),
+        ],
+      ),
+      body: CupertinoTabScaffold(
         tabBar: CupertinoTabBar(
           items: const [
             BottomNavigationBarItem(

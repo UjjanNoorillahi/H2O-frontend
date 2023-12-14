@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../constant/const.dart';
+import 'available_box_alert_box_widget.dart';
 
 class BlackBalanceCardWidget extends StatelessWidget {
   var availableBalance;
@@ -87,16 +88,26 @@ class BlackBalanceCardWidget extends StatelessWidget {
                       //       builder: (context) => const Home()),
                       // );
                     },
-                    child: const Text(
-                      // write available balance with dollar sign
-                      "  See details",
-                      // textAlign: TextAlign.left,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontFamily: primaryFont,
-                        // fontWeight: FontWeight.w500,
-                        // letterSpacing: -0.56,
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  AvailableBalanceBoxAlertWidget()),
+                        );
+                      },
+                      child: const Text(
+                        // write available balance with dollar sign
+                        "  See details",
+                        // textAlign: TextAlign.left,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontFamily: primaryFont,
+                          // fontWeight: FontWeight.w500,
+                          // letterSpacing: -0.56,
+                        ),
                       ),
                     ),
                   ),
