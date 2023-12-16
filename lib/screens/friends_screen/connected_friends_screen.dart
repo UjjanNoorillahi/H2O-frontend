@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:h2o/constant/const.dart';
-import 'package:h2o/screens/login_screen.dart';
+import 'package:h2o/screens/auth/login_screen.dart';
 
-import '../Services/get_friends_data_api.dart';
-import '../models/get_user_data_model.dart';
-import '../widgets/friend_suggestion_card.dart';
+import '../../Services/get_friends_data_api.dart';
+import '../../models/get_user_data_model.dart';
+import '../../widgets/friend_suggestion_card.dart';
 
 class ConnectedFriendsScreen extends StatefulWidget {
   const ConnectedFriendsScreen({super.key});

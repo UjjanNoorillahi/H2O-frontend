@@ -1,10 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-// import 'package:life_dox_ai/presentation/screens/get_started_screen.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
-import 'login_screen.dart';
+import '../auth/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   static const routeName = '/splash_screen';
@@ -37,10 +35,8 @@ class _SplashScreenState extends State<SplashScreen> {
       body: SafeArea(
         child: Center(
           child: Column(
-
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-
               // add svg image here,
               // SvgPicture.asset(
               //   // 'assets/images/life_dox_ai_logo.svg',

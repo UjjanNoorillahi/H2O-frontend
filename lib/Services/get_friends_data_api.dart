@@ -1,24 +1,33 @@
 import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 
 import '../constant/const.dart';
 import '../models/get_user_data_model.dart';
 
 class FriendSuggestionService {
-
   Future<List<FriendSuggestion>?> getFriendSuggestions(String authToken) async {
     final url = Uri.parse(GET_FRIENDS_DATA);
 
     try {
-      final response = await http.post(
+      final response = await http.get(
         url,
-        headers: {"Authorization": authToken},
+        headers: {
+          "Authorization":
+              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Njc3ODFmNTQ2OTFmMTE3YTkwZjBmMSIsInVzZXJuYW1lIjoiZmFpemlAZ21haWwuY29tIiwiaWF0IjoxNzAyNjY1NTI2fQ.DXDAHdyvXBb0pVIHuoZKfe4zmt9ZXVByxYYQ-M913Fs'
+        },
       );
 
       if (response.statusCode == 200) {
-        final List<dynamic> responseData = jsonDecode(response.body)['matching_users'];
-        return responseData.map((json) => FriendSuggestion.fromJson(json)).toList();
+        final List<dynamic> responseData =
+            jsonDecode(response.body)['matching_users'];
+        print("Friend Suggestions: ");
+        print(responseData.toString());
+        return responseData
+            .map((json) => FriendSuggestion.fromJson(json))
+            .toList();
       } else {
+        print("Error: ${response.statusCode}");
         // print("Token: $authToken");
         // print("Url: $GET_FRIENDS_DATA");
         // Handle error, you might want to throw an exception or return null

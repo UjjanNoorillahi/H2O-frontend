@@ -1,9 +1,10 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:h2o/screens/friends_suggestion_screen.dart';
-import 'package:h2o/screens/login_screen.dart';
-import 'package:h2o/widgets/primary_button.dart';
+
+import '../../widgets/primary_button.dart';
+import 'friends_suggestion_screen.dart';
 
 class FindFriendsScreen extends StatefulWidget {
   const FindFriendsScreen({super.key});
@@ -26,21 +27,15 @@ class _FindFriendsScreenState extends State<FindFriendsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Find Friends"),
-        leading: InkWell(
-          child: const Icon(Icons.arrow_back_ios),
-          onTap: () {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                builder: (context) => const LoginScreen(),
-              ),
-            );
-          },
+    return CupertinoPageScaffold(
+      // navigationbar
+      navigationBar: const CupertinoNavigationBar(
+        backgroundColor: Colors.white,
+        middle: Text(
+          "Find Friends",
         ),
       ),
-      body: SingleChildScrollView(
+      child: SingleChildScrollView(
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -57,11 +52,10 @@ class _FindFriendsScreenState extends State<FindFriendsScreen> {
 
               timer
                   ? Container()
-                  : const CircularProgressIndicator(
-                      color: Colors.black,
-                      strokeWidth: 4.0,
+                  : // iOS Circular Progress Indicator
+                  const CupertinoActivityIndicator(
+                      radius: 20,
                     ),
-
               const SizedBox(
                 height: 16,
               ),

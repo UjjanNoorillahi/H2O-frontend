@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:h2o/screens/login_screen.dart';
+import 'package:h2o/screens/auth/login_screen.dart';
 import 'package:h2o/widgets/custom_textfield.dart';
 import 'package:h2o/widgets/primary_button.dart';
 
-import '../Services/sign_up_api.dart';
-import '../models/sign_up_request.dart';
-import 'find_friends_screen.dart';
+import '../../Services/sign_up_api.dart';
+import '../../models/sign_up_request.dart';
+import '../friends_screen/find_friends_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});

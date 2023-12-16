@@ -1,12 +1,44 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constant/const.dart';
-import 'available_box_alert_box_widget.dart';
 
 class BlackBalanceCardWidget extends StatelessWidget {
   var availableBalance;
 
   BlackBalanceCardWidget({super.key, required this.availableBalance});
+
+  // This shows a CupertinoModalPopup which hosts a CupertinoAlertDialog.
+  void _showAlertDialog(BuildContext context) {
+    showCupertinoModalPopup<void>(
+      context: context,
+      builder: (BuildContext context) => CupertinoAlertDialog(
+        title: const Text('Alert'),
+        content: const Text('Proceed with destructive action?'),
+        actions: <CupertinoDialogAction>[
+          CupertinoDialogAction(
+            /// This parameter indicates this action is the default,
+            /// and turns the action's text to bold text.
+            isDefaultAction: true,
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text('No'),
+          ),
+          CupertinoDialogAction(
+            /// This parameter indicates the action would perform
+            /// a destructive action such as deletion, and turns
+            /// the action's text color to red.
+            isDestructiveAction: true,
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text('Yes'),
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,38 +108,22 @@ class BlackBalanceCardWidget extends StatelessWidget {
                 ],
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.04,
-              ),
+                  // height: MediaQuery.of(context).size.height * 0.04,
+                  ),
               Row(
                 children: [
-                  GestureDetector(
-                    onTap: () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //       builder: (context) => const Home()),
-                      // );
-                    },
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  AvailableBalanceBoxAlertWidget()),
-                        );
-                      },
-                      child: const Text(
-                        // write available balance with dollar sign
-                        "  See details",
-                        // textAlign: TextAlign.left,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontFamily: primaryFont,
-                          // fontWeight: FontWeight.w500,
-                          // letterSpacing: -0.56,
-                        ),
+                  CupertinoButton(
+                    onPressed: () => _showAlertDialog(context),
+                    child: const Text(
+                      // write available balance with dollar sign
+                      "See details",
+                      // textAlign: TextAlign.left,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontFamily: primaryFont,
+                        // fontWeight: FontWeight.w500,
+                        // letterSpacing: -0.56,
                       ),
                     ),
                   ),

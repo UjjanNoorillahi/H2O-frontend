@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:h2o/screens/login_screen.dart';
+import 'package:h2o/screens/auth/login_screen.dart';
 
 class CompatibilityScreen extends StatefulWidget {
   const CompatibilityScreen({Key? key}) : super(key: key);
@@ -35,13 +35,16 @@ class _CompatibilityScreenState extends State<CompatibilityScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Zodiac Compatibility'),
-        leading: InkWell(child: Icon(Icons.arrow_back_ios), onTap: (){
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(
-              builder: (context) => LoginScreen(),
-            ),
-          );
-        },),
+        leading: InkWell(
+          child: Icon(Icons.arrow_back_ios),
+          onTap: () {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (context) => LoginScreen(),
+              ),
+            );
+          },
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -82,11 +85,13 @@ class _CompatibilityScreenState extends State<CompatibilityScreen> {
             ElevatedButton(
               onPressed: () {
                 // Calculate compatibility
-                compatibilityScore = calculateCompatibility(selectedSign1, selectedSign2);
+                compatibilityScore =
+                    calculateCompatibility(selectedSign1, selectedSign2);
 
                 // Update compatibility result based on the calculated score
                 setState(() {
-                  compatibilityResult = interpretCompatibility(compatibilityScore);
+                  compatibilityResult =
+                      interpretCompatibility(compatibilityScore);
                 });
               },
               child: Text('Calculate Compatibility'),
@@ -144,14 +149,6 @@ List<String> _zodiacSigns = [
   'Aquarius',
   'Pisces',
 ];
-
-
-
-
-
-
-
-
 
 // import 'package:flutter/material.dart';
 //

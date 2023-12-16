@@ -1,0 +1,435 @@
+// import 'package:flutter/material.dart';
+// import 'package:h2o/screens/friends_suggestion_screen.dart';
+//
+// import '../models/get_user_data_model.dart';
+//
+// class ChatScreen extends StatefulWidget {
+//   final FriendSuggestion suggestion;
+//
+//   const ChatScreen({super.key, required this.suggestion});
+//
+//   @override
+//   State<ChatScreen> createState() => _ChatScreenState();
+// }
+//
+// class _ChatScreenState extends State<ChatScreen> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         leadingWidth: 70,
+//         title: Row(
+//           children: [
+//             IconButton(
+//                 onPressed: () {
+//                   Navigator.of(context).pushReplacement(
+//                     MaterialPageRoute(
+//                         builder: (context) => const FriendsSuggestionPage()),
+//                   );
+//                 },
+//                 icon: Icon(Icons.arrow_back)),
+//             CircleAvatar(),
+//             SizedBox(
+//               width: 20,
+//             ),
+//             Text(widget.suggestion.fullName),
+//           ],
+//         ),
+//         actions: [
+//           PopupMenuButton(
+//             icon: Icon(
+//               Icons.more_vert_outlined,
+//               color: Colors.black,
+//             ),
+//             itemBuilder: (context) => const [
+//               PopupMenuItem(
+//                 value: '1',
+//                 child: Text('option 1'),
+//               ),
+//               PopupMenuItem(
+//                 value: '2',
+//                 child: Text('option 2'),
+//               ),
+//               PopupMenuItem(
+//                 value: '2',
+//                 child: Text('option 3'),
+//               ),
+//             ],
+//           ),
+//         ],
+//       ),
+//       body: Padding(
+//         padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0),
+//         child: Column(
+//           children: [
+//             Container(
+//               // messages portion
+//               color: Colors.green,
+//               height: MediaQuery.of(context).size.height *
+//                   0.75, // 70% of screen height
+//               width:
+//                   MediaQuery.of(context).size.width, // Full width of the screen
+//               child: Text("Hello"),
+//             ),
+//             Expanded(
+//                 // Search bar portion of the whole screen
+//                 child: Container(
+//               width: MediaQuery.of(context).size.width,
+//               color: Colors.red,
+//               child: Text("remaning part"),
+//             ))
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+import '../../Services/send_message_service_api.dart';
+import '../../models/get_user_data_model.dart';
+import '../../models/send_message_model.dart';
+import '../friends_screen/friends_suggestion_screen.dart';
+
+class ChatScreen extends StatefulWidget {
+  final FriendSuggestion suggestion;
+
+  const ChatScreen({super.key, required this.suggestion});
+
+  static const String screen_id = 'ChatScreen';
+
+  @override
+  State<ChatScreen> createState() => _ChatScreenState();
+}
+
+class _ChatScreenState extends State<ChatScreen> {
+  List<Map<String, dynamic>> _messages = [
+    // write dummy messages
+    {
+      'message': 'Hello',
+      'from': 'sender',
+    },
+    {
+      'message': 'Hi',
+      'from': 'reciever',
+    },
+    {
+      'message': 'How are you?',
+      'from': 'sender',
+    },
+    {
+      'message': 'I am fine',
+      'from': 'reciever',
+    },
+    {
+      'message': 'How are you?',
+      'from': 'sender',
+    },
+    {
+      'message': 'I am fine',
+      'from': 'reciever',
+    },
+    {
+      'message': 'How are you?',
+      'from': 'sender',
+    },
+    {
+      'message': 'I am fine',
+      'from': 'reciever',
+    },
+    {
+      'message': 'How are you?',
+      'from': 'sender',
+    },
+    {
+      'message': 'I am fine',
+      'from': 'reciever',
+    },
+    {
+      'message': 'How are you?',
+      'from': 'sender',
+    },
+    {
+      'message': 'I am fine',
+      'from': 'reciever',
+    },
+    {
+      'message': 'How are you?',
+      'from': 'sender',
+    },
+    {
+      'message': 'I am fine',
+      'from': 'reciever',
+    },
+    {
+      'message': 'How are you?',
+      'from': 'sender',
+    },
+    {
+      'message': 'I am fine',
+      'from': 'reciever',
+    },
+    {
+      'message': 'How are you?',
+      'from': 'sender',
+    },
+    {
+      'message': 'I am fine, thats perfect lets talk about something else',
+      'from': 'reciever',
+    },
+  ];
+  bool _lastMsgIsRecieved = true;
+  int count = 0;
+  double _topMarginofTile = 0;
+
+  TextEditingController userMessageController = TextEditingController();
+
+// sendMessage function
+  void sendMessage() async {
+    final apiService = SendMessageServiceApi();
+    final token = 'your_token_here';
+
+    final messageRequest = MessageRequest(
+      receiverId: '656777f954691f117a90f0eb',
+      content: 'how r u bro',
+    );
+
+    try {
+      final response = await apiService.sendMessage(token, messageRequest);
+      print('Success: ${response.success}');
+      print('Message: ${response.message}');
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
+
+  Widget build(BuildContext context) {
+    return CupertinoPageScaffold(
+      child: Container(
+        padding: EdgeInsets.only(
+            top: 10.0), // Adjust the top padding to increase the height
+        child: Column(
+          children: [
+            CupertinoNavigationBar(
+              leading: ProfileHeader(fullName: widget.suggestion.fullName),
+              backgroundColor: CupertinoColors.systemBackground,
+            ),
+            Expanded(
+              child: Center(
+                child: Column(
+                  children: [
+                    Flexible(
+                      child: ListView.builder(
+                        itemCount: _messages.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              margin: EdgeInsets.only(
+                                  left: _messages[index]['from'] == 'sender'
+                                      ? 80
+                                      : 5,
+                                  right: _messages[index]['from'] == 'sender'
+                                      ? 5
+                                      : 80,
+                                  top: _messages[index]['from'] == 'sender'
+                                      ? 10
+                                      : 2,
+                                  bottom: 0),
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 10, horizontal: 10),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                color: _messages[index]['from'] == 'sender'
+                                    ? Colors.grey
+                                    : Colors.blue,
+                              ),
+                              child: Text(
+                                _messages[index]['message'],
+                                style: TextStyle(
+                                  // backgroundColor: themeColor1,
+                                  color: Colors.white.withOpacity(0.9),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              decoration: const BoxDecoration(
+                color: CupertinoColors.systemBackground,
+                border: Border(
+                  top: BorderSide(
+                    color: CupertinoColors.systemGrey,
+                    width: 0.5,
+                  ),
+                ),
+              ),
+              // Search bar portion of the whole screen
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height * 0.12,
+              // color: CupertinoColors.systemBackground,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: CupertinoTextField(
+                          // open soft keyboard on focus
+                          autofocus: true,
+                          controller: userMessageController,
+                          placeholder: 'Type a message',
+                          decoration: const BoxDecoration(
+                            color: CupertinoColors.systemBackground,
+                          ),
+                          // on submitted
+                          onSubmitted: (value) {}),
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.only(right: 10),
+                    child: CupertinoButton(
+                      onPressed: () {
+                        // save the message to the list
+                        _messages.add({
+                          'message': userMessageController.text,
+                          'from': 'sender',
+                        });
+                        // clear the text field
+                        userMessageController.clear();
+                        setState(() {});
+                      },
+                      child: const Icon(
+                        CupertinoIcons.paperplane_fill,
+                        color: CupertinoColors.activeBlue,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  // Row SentMessageTile(Color themeColor2) {
+  //   WidgetsBinding.instance.addPostFrameCallback((_) {
+  //     print('--------------------------------------------');
+  //     print(" In sentTile , lastMsgIsRecieved : $_lastMsgIsRecieved");
+  //     _lastMsgIsRecieved = false;
+  //     print(" In sentTile , lastMsgIsRecieved : $_lastMsgIsRecieved");
+  //   });
+  //   // EdgeInsets messageTileMargin;
+  //   // if (_lastMsgIsRecieved) {
+  //   //   messageTileMargin =
+  //   //       EdgeInsets.only(left: 80, right: 5, top: 10, bottom: 0);
+  //   // } else {
+  //   //   messageTileMargin =
+  //   //       EdgeInsets.only(left: 80, right: 5, top: 2, bottom: 0);
+  //   // }
+  //   return Row(
+  //     mainAxisAlignment: MainAxisAlignment.end,
+  //     children: [
+  //       Flexible(
+  //         child: Container(
+  //           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+  //           margin:
+  //               const EdgeInsets.only(left: 80, right: 5, top: 0, bottom: 0),
+  //           decoration: BoxDecoration(
+  //             borderRadius: BorderRadius.circular(15),
+  //             color: themeColor2,
+  //           ),
+  //           child: Text(
+  //             'swqd a asdad asd a s',
+  //             style: TextStyle(
+  //               // backgroundColor: themeColor1,
+  //               color: Colors.white.withOpacity(0.9),
+  //             ),
+  //           ),
+  //         ),
+  //       )
+  //     ],
+  //   );
+  // }
+
+  // Row RecievedMessageTile(Color themeColor1) {
+  //   WidgetsBinding.instance.addPostFrameCallback((_) {
+  //     print('----------------------------------------------------');
+  //     _lastMsgIsRecieved = true;
+  //   });
+  //   return Row(
+  //     children: [
+  //       Flexible(
+  //         child: Container(
+  //           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+  //           margin:
+  //               const EdgeInsets.only(left: 5, right: 80, top: 0, bottom: 0),
+  //           decoration: BoxDecoration(
+  //             borderRadius: BorderRadius.circular(15),
+  //             color: Colors.grey,
+  //           ),
+  //           child: Text(
+  //             'swqd a sdad asdasdsaa asdbsdsakbda dsa sda dajdald lasjdlwihaasdhasd dna sdasdaodjnas sasdasdasda',
+  //             style: TextStyle(
+  //               // backgroundColor: themeColor1,
+  //               color: Colors.white.withOpacity(0.9),
+  //             ),
+  //           ),
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
+}
+
+class ProfileHeader extends StatelessWidget {
+  var fullName;
+
+  ProfileHeader({super.key, required this.fullName});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      // mainAxisAlignment: MainAxisAlignment.center,
+      // crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        IconButton(
+          color: Colors.black,
+          onPressed: () {
+            // navigate to previous screen
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (context) => FriendsSuggestionPage(),
+              ),
+            );
+          },
+          icon: Icon(
+            Icons.arrow_back_ios_new_rounded,
+            size: 30,
+          ),
+        ),
+        SizedBox(width: 18),
+        CircleAvatar(
+          radius: 20,
+          // Replace with your image
+        ),
+        SizedBox(width: 8),
+        // show the name of the user
+
+        Text(
+          fullName, // Replace with the user's name
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+      ],
+    );
+  }
+}
