@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:h2o/constant/const.dart';
 import 'package:h2o/screens/auth/login_screen.dart';
 import 'package:h2o/widgets/custom_textfield.dart';
 import 'package:h2o/widgets/primary_button.dart';
@@ -26,19 +28,52 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
 
+  // Future<void> _selectDate(BuildContext context) async {
+  //   final DateTime? picked = await showDatePicker(
+  //     context: context,
+  //     initialDate: DateTime.now(),
+  //     firstDate: DateTime(1900),
+  //     lastDate: DateTime.now(),
+  //   );
+  //
+  //   if (picked != null && picked != selectedDate) {
+  //     setState(() {
+  //       selectedDate = picked;
+  //     });
+  //     // widget.onDateSelected(picked);
+  //   }
+  // }
+
   Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
+    final DateTime? pickedDate = await showCupertinoModalPopup<DateTime>(
       context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(1900),
-      lastDate: DateTime.now(),
+      builder: (BuildContext builder) {
+        return Container(
+          height: 180.0,
+          width: double.infinity,
+          child: CupertinoDatePicker(
+            backgroundColor: Colors.white,
+            mode: CupertinoDatePickerMode.date,
+            initialDateTime: DateTime.now(),
+            minimumDate: DateTime(1900),
+            maximumDate: DateTime.now(),
+            onDateTimeChanged: (DateTime newDate) {
+              // Update the selectedDate or the controller's text as needed
+              setState(() {
+                selectedDate = newDate;
+              });
+            },
+          ),
+        );
+      },
     );
 
-    if (picked != null && picked != selectedDate) {
+    if (pickedDate != null && pickedDate != selectedDate) {
+      // Update your state or controller here
       setState(() {
-        selectedDate = picked;
+        selectedDate = pickedDate;
       });
-      // widget.onDateSelected(picked);
+      // widget.onDateSelected(pickedDate);
     }
   }
 
@@ -86,21 +121,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return CupertinoPageScaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        leading: InkWell(
-          child: Icon(Icons.arrow_back_ios),
-          onTap: () {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                builder: (context) => LoginScreen(),
-              ),
-            );
-          },
-        ),
-      ),
-      body: Center(
+      child: Center(
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -178,23 +201,48 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   SizedBox(
                     height: 16,
                   ),
+                  // Padding(
+                  //   padding: const EdgeInsets.only(left: 28, right: 28),
+                  //   child: TextFormField(
+                  //     readOnly: true,
+                  //     onTap: () => _selectDate(context),
+                  //     decoration: InputDecoration(
+                  //       // labelText: widget.labelText,
+                  //       contentPadding: const EdgeInsets.all(20),
+                  //       // hintText: widget.hintText,
+                  //       border: OutlineInputBorder(
+                  //         borderRadius: BorderRadius.circular(15.0),
+                  //       ),
+                  //
+                  //       prefixIcon: IconButton(
+                  //         icon: Icon(Icons.calendar_month_rounded),
+                  //         onPressed: () => _selectDate(context),
+                  //       ),
+                  //     ),
+                  //     controller: TextEditingController(
+                  //       text: selectedDate == null
+                  //           ? ''
+                  //           : "${selectedDate!.day}/${selectedDate!.month}/${selectedDate!.year}",
+                  //     ),
+                  //   ),
+                  // ),
+
                   Padding(
                     padding: const EdgeInsets.only(left: 28, right: 28),
-                    child: TextFormField(
+                    child: CupertinoTextField(
                       readOnly: true,
                       onTap: () => _selectDate(context),
-                      decoration: InputDecoration(
-                        // labelText: widget.labelText,
-                        contentPadding: const EdgeInsets.all(20),
-                        // hintText: widget.hintText,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15.0),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: appGreyColor,
+                          width: 2.0,
                         ),
-
-                        prefixIcon: IconButton(
-                          icon: Icon(Icons.calendar_month_rounded),
-                          onPressed: () => _selectDate(context),
-                        ),
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
+                      prefix: IconButton(
+                        icon: Icon(Icons.calendar_today,
+                            color: Colors.black.withOpacity(0.5), size: 20),
+                        onPressed: () => _selectDate(context),
                       ),
                       controller: TextEditingController(
                         text: selectedDate == null

@@ -14,7 +14,7 @@ class FriendSuggestionService {
         url,
         headers: {
           "Authorization":
-              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Njc3ODFmNTQ2OTFmMTE3YTkwZjBmMSIsInVzZXJuYW1lIjoiZmFpemlAZ21haWwuY29tIiwiaWF0IjoxNzAyNjY1NTI2fQ.DXDAHdyvXBb0pVIHuoZKfe4zmt9ZXVByxYYQ-M913Fs'
+              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Njc3ODFmNTQ2OTFmMTE3YTkwZjBmMSIsInVzZXJuYW1lIjoiZmFpemlAZ21haWwuY29tIiwiaWF0IjoxNzAyODA3NDM1fQ.WKE3ZMei9ODVBFA-NvJ9lDI5bA9k275vX6PS7PMpz9w'
         },
       );
 

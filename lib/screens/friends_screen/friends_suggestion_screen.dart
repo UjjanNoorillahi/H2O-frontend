@@ -51,7 +51,7 @@ class _FriendsSuggestionPageState extends State<FriendsSuggestionPage> {
 
   void getFriendSuggestions() async {
     String _authToken =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NTI3ZTlhZWRjYmVkODc1OTA0MDdmZiIsInVzZXJuYW1lIjoic2FqaWRAZ21haWwuY29tIiwiaWF0IjoxNzAwMzc3NTUyfQ.ZenSxB1HqjPjSABnbveQNltLsdVJkbEXFUe2SnR4nU4"; // Replace with your actual auth token
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Njc3ODFmNTQ2OTFmMTE3YTkwZjBmMSIsInVzZXJuYW1lIjoiZmFpemlAZ21haWwuY29tIiwiaWF0IjoxNzAyODA3NDM1fQ.WKE3ZMei9ODVBFA-NvJ9lDI5bA9k275vX6PS7PMpz9w"; // Replace with your actual auth token
 
     FriendSuggestionService friendSuggestionService = FriendSuggestionService();
 

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:h2o/provider/auth_token_provider.dart';
-import 'package:h2o/screens/friends_screen/friends_suggestion_screen.dart';
+import 'package:h2o/screens/splash_screen/splash_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       child: CupertinoApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
-        home: FriendsSuggestionPage(),
+        home: SplashScreen(),
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:h2o/screens/auth/sign_up_screen.dart';
 import 'package:h2o/screens/home_screen/home_screen.dart';
@@ -104,9 +105,8 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     final authTokenProvider = Provider.of<AuthTokenProvider>(context);
 
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: SingleChildScrollView(
+    return CupertinoPageScaffold(
+      child: SingleChildScrollView(
         child: Center(
           child: Column(
             children: [

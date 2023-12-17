@@ -89,6 +89,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../Services/send_message_service_api.dart';
+import '../../Services/websocket_service.dart';
 import '../../models/get_user_data_model.dart';
 import '../../models/send_message_model.dart';
 import '../friends_screen/friends_suggestion_screen.dart';
@@ -105,6 +106,8 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  late SocketIOService socketIOService;
+
   List<Map<String, dynamic>> _messages = [
     // write dummy messages
     {
@@ -189,7 +192,8 @@ class _ChatScreenState extends State<ChatScreen> {
 // sendMessage function
   void sendMessage() async {
     final apiService = SendMessageServiceApi();
-    final token = 'your_token_here';
+    const token =
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Njc3N2U2NTQ2OTFmMTE3YTkwZjBlOCIsInVzZXJuYW1lIjoibGFhbG9AZ21haWwuY29tIiwiaWF0IjoxNzAyNjY1NzQ0fQ.VO2Xz-dhAV9I23tSwkLn2EDi4Ssat1xEEvNykCZ9vxE';
 
     final messageRequest = MessageRequest(
       receiverId: '656777f954691f117a90f0eb',
@@ -203,6 +207,31 @@ class _ChatScreenState extends State<ChatScreen> {
     } catch (e) {
       print('Error: $e');
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    socketIOService = SocketIOService();
+    socketIOService.connect();
+    // receive message
+    socketIOService.socket.on('message', (data) {
+      print('Received message: $data');
+      // Handle the received message as needed
+      _messages.add({
+        'message': data['message'],
+        'from': 'reciever',
+      });
+
+      setState(() {});
+    });
+    print(_messages.length);
+  }
+
+  @override
+  void dispose() {
+    socketIOService.disconnect();
+    super.dispose();
   }
 
   Widget build(BuildContext context) {
@@ -305,6 +334,9 @@ class _ChatScreenState extends State<ChatScreen> {
                         // clear the text field
                         userMessageController.clear();
                         setState(() {});
+
+                        // send the message to the server
+                        sendMessage();
                       },
                       child: const Icon(
                         CupertinoIcons.paperplane_fill,
@@ -320,75 +352,6 @@ class _ChatScreenState extends State<ChatScreen> {
       ),
     );
   }
-
-  // Row SentMessageTile(Color themeColor2) {
-  //   WidgetsBinding.instance.addPostFrameCallback((_) {
-  //     print('--------------------------------------------');
-  //     print(" In sentTile , lastMsgIsRecieved : $_lastMsgIsRecieved");
-  //     _lastMsgIsRecieved = false;
-  //     print(" In sentTile , lastMsgIsRecieved : $_lastMsgIsRecieved");
-  //   });
-  //   // EdgeInsets messageTileMargin;
-  //   // if (_lastMsgIsRecieved) {
-  //   //   messageTileMargin =
-  //   //       EdgeInsets.only(left: 80, right: 5, top: 10, bottom: 0);
-  //   // } else {
-  //   //   messageTileMargin =
-  //   //       EdgeInsets.only(left: 80, right: 5, top: 2, bottom: 0);
-  //   // }
-  //   return Row(
-  //     mainAxisAlignment: MainAxisAlignment.end,
-  //     children: [
-  //       Flexible(
-  //         child: Container(
-  //           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-  //           margin:
-  //               const EdgeInsets.only(left: 80, right: 5, top: 0, bottom: 0),
-  //           decoration: BoxDecoration(
-  //             borderRadius: BorderRadius.circular(15),
-  //             color: themeColor2,
-  //           ),
-  //           child: Text(
-  //             'swqd a asdad asd a s',
-  //             style: TextStyle(
-  //               // backgroundColor: themeColor1,
-  //               color: Colors.white.withOpacity(0.9),
-  //             ),
-  //           ),
-  //         ),
-  //       )
-  //     ],
-  //   );
-  // }
-
-  // Row RecievedMessageTile(Color themeColor1) {
-  //   WidgetsBinding.instance.addPostFrameCallback((_) {
-  //     print('----------------------------------------------------');
-  //     _lastMsgIsRecieved = true;
-  //   });
-  //   return Row(
-  //     children: [
-  //       Flexible(
-  //         child: Container(
-  //           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-  //           margin:
-  //               const EdgeInsets.only(left: 5, right: 80, top: 0, bottom: 0),
-  //           decoration: BoxDecoration(
-  //             borderRadius: BorderRadius.circular(15),
-  //             color: Colors.grey,
-  //           ),
-  //           child: Text(
-  //             'swqd a sdad asdasdsaa asdbsdsakbda dsa sda dajdald lasjdlwihaasdhasd dna sdasdaodjnas sasdasdasda',
-  //             style: TextStyle(
-  //               // backgroundColor: themeColor1,
-  //               color: Colors.white.withOpacity(0.9),
-  //             ),
-  //           ),
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
 }
 
 class ProfileHeader extends StatelessWidget {
