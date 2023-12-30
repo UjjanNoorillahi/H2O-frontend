@@ -1,29 +1,38 @@
 // socket_io_service.dart
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:socket_io_client/socket_io_client.dart' as io;
-
-import '../constant/const.dart';
 
 class SocketIOService {
   late io.Socket socket;
+  String? userToken;
 
-  void connect() {
-    socket = io.io(BASE_URL, <String, dynamic>{
-      'transports': ['websocket'],
-    });
+  Future<void> connect() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? userToken = prefs.getString('userToken');
 
-    socket.connect();
+    try {
+      socket = io.io('http://3.144.244.10:3000', <String, dynamic>{
+        'transports': ['websocket'],
+        'query': {'token': userToken},
+      });
 
-    socket.on('connect', (_) {
-      print('Connected to the server');
-    });
+      socket.connect();
 
-    socket.on('message', (data) {
-      print('Received message: $data');
-      // Handle the received message as needed
-    });
+      socket.on('connect', (_) {
+        print('Connected to the server');
+      });
 
-    // send message
-    // sendMessage('Hello to the world of java!');
+      socket.on('privateMessageSent', (data) {
+        print('Received message...: $data');
+        print('Received message...: $data');
+        // Handle the received message as needed
+      });
+
+      // send message
+      // sendMessage('Hello to the world of java!');
+    } catch (e) {
+      print(e);
+    }
   }
 
   void sendMessage(String message) {

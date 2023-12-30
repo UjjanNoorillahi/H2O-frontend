@@ -1,20 +1,32 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constant/const.dart';
 import '../models/get_user_data_model.dart';
 
 class FriendSuggestionService {
+  // get token from shared preferences
+  Future<String?> getStoredUserData() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    // Retrieve stored user data from shared preferences
+    final String? userToken = prefs.getString('userToken');
+    print("User Token: $userToken");
+    return userToken;
+  }
+
   Future<List<FriendSuggestion>?> getFriendSuggestions(String authToken) async {
     final url = Uri.parse(GET_FRIENDS_DATA);
+    final userToken = await getStoredUserData();
 
+    print("user Token: $userToken");
     try {
       final response = await http.get(
         url,
         headers: {
-          "Authorization":
-              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Njc3ODFmNTQ2OTFmMTE3YTkwZjBmMSIsInVzZXJuYW1lIjoiZmFpemlAZ21haWwuY29tIiwiaWF0IjoxNzAyODA3NDM1fQ.WKE3ZMei9ODVBFA-NvJ9lDI5bA9k275vX6PS7PMpz9w'
+          "Authorization": userToken!,
         },
       );
 

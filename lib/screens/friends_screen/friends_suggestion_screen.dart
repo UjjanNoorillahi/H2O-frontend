@@ -5,6 +5,7 @@ import '../../Services/get_friends_data_api.dart';
 import '../../constant/const.dart';
 import '../../models/get_user_data_model.dart';
 import '../../widgets/friend_suggestion_card.dart';
+import '../home_screen/home_screen.dart';
 
 class FriendsSuggestionPage extends StatefulWidget {
   const FriendsSuggestionPage({super.key});
@@ -88,8 +89,17 @@ class _FriendsSuggestionPageState extends State<FriendsSuggestionPage> {
   Widget build(BuildContext context) {
     // final authTokenProvider = Provider.of<AuthTokenProvider>(context);
     return CupertinoPageScaffold(
-        navigationBar: const CupertinoNavigationBar(
+        navigationBar: CupertinoNavigationBar(
           middle: Text('Find Friends'),
+          leading: CupertinoNavigationBarBackButton(
+            onPressed: () {
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (context) => const Home(),
+                ),
+              );
+            },
+          ),
         ),
         child: Padding(
           padding: const EdgeInsets.all(12.0),

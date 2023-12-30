@@ -87,6 +87,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../Services/send_message_service_api.dart';
 import '../../Services/websocket_service.dart';
@@ -191,17 +192,18 @@ class _ChatScreenState extends State<ChatScreen> {
 
 // sendMessage function
   void sendMessage() async {
-    final apiService = SendMessageServiceApi();
-    const token =
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Njc3N2U2NTQ2OTFmMTE3YTkwZjBlOCIsInVzZXJuYW1lIjoibGFhbG9AZ21haWwuY29tIiwiaWF0IjoxNzAyNjY1NzQ0fQ.VO2Xz-dhAV9I23tSwkLn2EDi4Ssat1xEEvNykCZ9vxE';
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
 
+    String? userToken = prefs.getString('userToken');
+    final apiService = SendMessageServiceApi();
+    final token = userToken;
     final messageRequest = MessageRequest(
-      receiverId: '656777f954691f117a90f0eb',
-      content: 'how r u bro',
+      receiverId: '6567780f54691f117a90f0ee',
+      content: 'Hello',
     );
 
     try {
-      final response = await apiService.sendMessage(token, messageRequest);
+      final response = await apiService.sendMessage(token!, messageRequest);
       print('Success: ${response.success}');
       print('Message: ${response.message}');
     } catch (e) {
@@ -215,16 +217,16 @@ class _ChatScreenState extends State<ChatScreen> {
     socketIOService = SocketIOService();
     socketIOService.connect();
     // receive message
-    socketIOService.socket.on('message', (data) {
+    socketIOService.socket.on('privateMessageSent', (data) {
       print('Received message: $data');
       // Handle the received message as needed
       _messages.add({
         'message': data['message'],
         'from': 'reciever',
       });
-
       setState(() {});
     });
+
     print(_messages.length);
   }
 
@@ -256,6 +258,8 @@ class _ChatScreenState extends State<ChatScreen> {
                           return Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Container(
+                              // change boarder color
+
                               margin: EdgeInsets.only(
                                   left: _messages[index]['from'] == 'sender'
                                       ? 80
@@ -270,16 +274,26 @@ class _ChatScreenState extends State<ChatScreen> {
                               padding: const EdgeInsets.symmetric(
                                   vertical: 10, horizontal: 10),
                               decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: _messages[index]['from'] == 'sender'
+                                      ? Colors.black
+                                      : Colors.black,
+                                  width: 1,
+                                ),
                                 borderRadius: BorderRadius.circular(15),
                                 color: _messages[index]['from'] == 'sender'
-                                    ? Colors.grey
-                                    : Colors.blue,
+                                    ? Colors.white
+                                    : Colors.black,
                               ),
                               child: Text(
                                 _messages[index]['message'],
                                 style: TextStyle(
                                   // backgroundColor: themeColor1,
-                                  color: Colors.white.withOpacity(0.9),
+                                  // sender text color in black color
+                                  color: _messages[index]['from'] == 'sender'
+                                      ? Colors.black
+                                      : Colors.white,
+                                  // color: Colors.white.withOpacity(0.9),
                                 ),
                               ),
                             ),
@@ -287,6 +301,12 @@ class _ChatScreenState extends State<ChatScreen> {
                         },
                       ),
                     ),
+                    SizedBox(
+                      height: 0,
+                      child: Container(
+                        color: Colors.transparent,
+                      ),
+                    )
                   ],
                 ),
               ),

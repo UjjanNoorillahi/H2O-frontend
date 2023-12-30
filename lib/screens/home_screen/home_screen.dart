@@ -1,11 +1,18 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:h2o/constant/const.dart';
+import 'package:h2o/screens/auth/login_screen.dart';
 import 'package:h2o/screens/friends_screen/friends_suggestion_screen.dart';
 import 'package:h2o/screens/home_screen/widgets/black_balance_card.dart';
 import 'package:h2o/screens/home_screen/widgets/grey_monthly_amount_card.dart';
 import 'package:h2o/screens/home_screen/widgets/long_term_goal_card.dart';
 import 'package:h2o/screens/home_screen/widgets/short_term_goal_card.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../Services/user_data_service.dart';
+import '../../models/user_data_model.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -18,12 +25,53 @@ class _HomeState extends State<Home> {
   String availableBalance = '3,578';
   double currentBalance = 4000;
   double availableBalanceText = 2478;
+
+  // get user data
+  getUserData() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? userToken = prefs.getString('userToken');
+
+    UserDataService userDataService = UserDataService();
+    UserData? userData = await userDataService.getUserData(userToken!);
+    if (userData != null) {
+      // log(userData.toString());
+      print("User data: $userData");
+      print(userData.fullName);
+      log(userData.toString());
+      // Store user data in provider
+      // Provider.of<UserDataStorage>(context, listen: false).userData = userData;
+    } else {
+      print("Error getting user data.");
+    }
+  }
+
+  @override
+  initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     // add Cupertino app bar
     return CupertinoPageScaffold(
-      navigationBar: const CupertinoNavigationBar(
+      navigationBar: CupertinoNavigationBar(
         middle: Text('Dashboard'),
+        // add logout button
+        trailing: CupertinoButton(
+          onPressed: () {
+            // await getUserData();
+            // Add your logout logic here
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (context) => LoginScreen(),
+              ),
+            );
+          },
+          child: const Icon(
+            CupertinoIcons.person_crop_circle_badge_xmark,
+            color: Colors.black,
+          ),
+        ),
       ),
       child: CupertinoTabScaffold(
         tabBar: CupertinoTabBar(

@@ -46,9 +46,6 @@ class _LoginScreenState extends State<LoginScreen> {
     // if (loginResponse != null) {
     toggleLogin();
     print("Login successful!");
-    // print("Message: ${loginResponse.message}");
-    // print("Token: ${loginResponse.token}");
-    // Add your navigation logic or other actions here
 
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
@@ -70,17 +67,6 @@ class _LoginScreenState extends State<LoginScreen> {
     UserData? userData = await userDataService.getUserData(authToken);
 
     if (userData != null) {
-      // print("User Data Received:");
-      // print("ID: ${userData.id}");
-      // print("Full Name: ${userData.fullName}");
-      // print("Gender: ${userData.gender}");
-      // print("Blood Type: ${userData.bloodType}");
-      // print("Religion: ${userData.religion}");
-      // print("Zodiac Sign: ${userData.zodiacSign}");
-      // print("Birth Date: ${userData.birthDate.toLocal()}"); // Convert to local time
-      // print("Email: ${userData.email}");
-      // Add your logic to use the user data
-
       // store user data into sharedPreference
       UserDataStorage().saveUserData(userData);
 

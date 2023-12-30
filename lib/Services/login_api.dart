@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constant/const.dart';
 import '../models/login_response_model.dart';
@@ -24,6 +25,10 @@ class AuthService {
         print("User Token: ");
 
         print(responseData.toString());
+
+        // Store data in shared preferences
+        await storeUserDataInPreferences(responseData);
+
         return LoginResponse.fromJson(responseData);
       } else {
         // Handle error, you might want to throw an exception or return null
@@ -35,5 +40,15 @@ class AuthService {
       print("Exception: $e");
       return null;
     }
+  }
+
+  Future<void> storeUserDataInPreferences(Map<String, dynamic> userData) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    // Store user data in shared preferences
+    prefs.setString('userToken', userData['data']);
+    // Add other data to store...
+
+    print("User data stored in preferences: $userData");
   }
 }

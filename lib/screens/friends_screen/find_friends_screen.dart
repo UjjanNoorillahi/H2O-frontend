@@ -30,11 +30,14 @@ class _FindFriendsScreenState extends State<FindFriendsScreen> {
     return CupertinoPageScaffold(
       // navigationbar
       navigationBar: const CupertinoNavigationBar(
-        backgroundColor: Colors.white,
-        middle: Text(
-          "Find Friends",
-        ),
-      ),
+          backgroundColor: Colors.white,
+          middle: Text(
+            "Find Friends",
+          ),
+          leading: Icon(
+            CupertinoIcons.back,
+            color: Colors.black,
+          )),
       child: SingleChildScrollView(
         child: Center(
           child: Column(
