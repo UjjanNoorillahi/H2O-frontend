@@ -9,6 +9,8 @@ import 'package:h2o/screens/home_screen/widgets/black_balance_card.dart';
 import 'package:h2o/screens/home_screen/widgets/grey_monthly_amount_card.dart';
 import 'package:h2o/screens/home_screen/widgets/long_term_goal_card.dart';
 import 'package:h2o/screens/home_screen/widgets/short_term_goal_card.dart';
+import 'package:h2o/screens/profile_screen/profile_screen.dart';
+import 'package:h2o/screens/wallet_screen/wallet_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../Services/user_data_service.dart';
@@ -116,9 +118,19 @@ class _HomeState extends State<Home> {
                 break;
               case 2:
                 // Navigate to the Wallet screen
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (context) => WalletScreen(),
+                  ),
+                );
                 break;
               case 3:
                 // Navigate to the Profile screen
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (context) => ProfileScreen(),
+                  ),
+                );
                 break;
             }
           },

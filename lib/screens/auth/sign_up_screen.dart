@@ -7,7 +7,7 @@ import 'package:h2o/widgets/primary_button.dart';
 
 import '../../Services/sign_up_api.dart';
 import '../../models/sign_up_request.dart';
-import '../friends_screen/find_friends_screen.dart';
+import '../friends_screen/find_freinds/find_friends_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});

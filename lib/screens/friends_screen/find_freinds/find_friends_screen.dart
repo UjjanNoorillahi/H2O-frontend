@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../widgets/primary_button.dart';
-import 'friends_suggestion_screen.dart';
+import '../../../widgets/primary_button.dart';
+import '../friends_suggestion_screen.dart';
 
 class FindFriendsScreen extends StatefulWidget {
   const FindFriendsScreen({super.key});

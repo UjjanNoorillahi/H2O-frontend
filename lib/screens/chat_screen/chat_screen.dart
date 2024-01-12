@@ -214,20 +214,6 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   void initState() {
     super.initState();
-    socketIOService = SocketIOService();
-    socketIOService.connect();
-    // receive message
-    socketIOService.socket.on('privateMessageSent', (data) {
-      print('Received message: $data');
-      // Handle the received message as needed
-      _messages.add({
-        'message': data['message'],
-        'from': 'reciever',
-      });
-      setState(() {});
-    });
-
-    print(_messages.length);
   }
 
   @override
@@ -257,43 +243,68 @@ class _ChatScreenState extends State<ChatScreen> {
                         itemBuilder: (context, index) {
                           return Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                              // change boarder color
+                            child: GestureDetector(
+                              onLongPress: () {
+                                print('button pressed');
+                                // PullDownButton(
+                                //   itemBuilder: (context) => [
+                                //     PullDownMenuItem(
+                                //       title: 'Menu item',
+                                //       onTap: () {},
+                                //     ),
+                                //     const PullDownMenuDivider(),
+                                //     PullDownMenuItem(
+                                //       title: 'Menu item 2',
+                                //       onTap: () {},
+                                //     ),
+                                //   ],
+                                //   buttonBuilder: (context, showMenu) =>
+                                //       CupertinoButton(
+                                //     onPressed: showMenu,
+                                //     padding: EdgeInsets.zero,
+                                //     child: const Icon(
+                                //         CupertinoIcons.ellipsis_circle),
+                                //   ),
+                                // );
+                              },
+                              child: Container(
+                                // change boarder color
 
-                              margin: EdgeInsets.only(
-                                  left: _messages[index]['from'] == 'sender'
-                                      ? 80
-                                      : 5,
-                                  right: _messages[index]['from'] == 'sender'
-                                      ? 5
-                                      : 80,
-                                  top: _messages[index]['from'] == 'sender'
-                                      ? 10
-                                      : 2,
-                                  bottom: 0),
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 10, horizontal: 10),
-                              decoration: BoxDecoration(
-                                border: Border.all(
+                                margin: EdgeInsets.only(
+                                    left: _messages[index]['from'] == 'sender'
+                                        ? 80
+                                        : 5,
+                                    right: _messages[index]['from'] == 'sender'
+                                        ? 5
+                                        : 80,
+                                    top: _messages[index]['from'] == 'sender'
+                                        ? 10
+                                        : 2,
+                                    bottom: 0),
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 10, horizontal: 10),
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: _messages[index]['from'] == 'sender'
+                                        ? Colors.black
+                                        : Colors.black,
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(15),
                                   color: _messages[index]['from'] == 'sender'
-                                      ? Colors.black
+                                      ? Colors.white
                                       : Colors.black,
-                                  width: 1,
                                 ),
-                                borderRadius: BorderRadius.circular(15),
-                                color: _messages[index]['from'] == 'sender'
-                                    ? Colors.white
-                                    : Colors.black,
-                              ),
-                              child: Text(
-                                _messages[index]['message'],
-                                style: TextStyle(
-                                  // backgroundColor: themeColor1,
-                                  // sender text color in black color
-                                  color: _messages[index]['from'] == 'sender'
-                                      ? Colors.black
-                                      : Colors.white,
-                                  // color: Colors.white.withOpacity(0.9),
+                                child: Text(
+                                  _messages[index]['message'],
+                                  style: TextStyle(
+                                    // backgroundColor: themeColor1,
+                                    // sender text color in black color
+                                    color: _messages[index]['from'] == 'sender'
+                                        ? Colors.black
+                                        : Colors.white,
+                                    // color: Colors.white.withOpacity(0.9),
+                                  ),
                                 ),
                               ),
                             ),
