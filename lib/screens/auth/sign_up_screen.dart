@@ -122,7 +122,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.black,
       child: Center(
         child: SingleChildScrollView(
           child: Column(
@@ -132,14 +132,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               const Text(
                 "Profile details",
-                style: TextStyle(fontSize: 45, fontWeight: FontWeight.w500),
+
+                style: TextStyle(fontSize: 45, fontWeight: FontWeight.w500, color: Colors.white),
               ),
               const SizedBox(
                 height: 20,
               ),
-              Image.asset("assets/logo/face.png"),
+              Image.asset("assets/logo/logo.png", scale: 1.5,),
               const SizedBox(
-                height: 60,
+                height: 10,
               ),
               const Text(
                 "Sign up to continue",
@@ -154,12 +155,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 children: [
                   CustomTextField(
                     labelText: 'First Name',
-                    controller: _firstNameController,
+                    controller: _firstNameController, textColor: Colors.white, boarderColor: Colors.white,
+                    placeHolderColor: Colors.white.withOpacity(0.6000000059604645),
+
                   ),
                   SizedBox(
                     height: 16,
                   ),
                   CustomTextField(
+                    textColor: Colors.white, boarderColor: Colors.white,
+                    placeHolderColor: Colors.white.withOpacity(0.6000000059604645),
                     labelText: 'Last Name',
                     controller: _lastNameController,
                   ),
@@ -167,6 +172,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     height: 16,
                   ),
                   CustomTextField(
+                    textColor: Colors.white, boarderColor: Colors.white,
+                    placeHolderColor: Colors.white.withOpacity(0.6000000059604645),
                     labelText: 'Email',
                     controller: _emailController,
                   ),
@@ -174,6 +181,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     height: 16,
                   ),
                   CustomTextField(
+                    textColor: Colors.white, boarderColor: Colors.white,
+                    placeHolderColor: Colors.white.withOpacity(0.6000000059604645),
                     labelText: 'Password',
                     controller: _passwordController,
                   ),
@@ -181,22 +190,28 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     height: 16,
                   ),
                   CustomTextField(
+                    textColor: Colors.white, boarderColor: Colors.white,
                     labelText: 'Blood Group',
                     controller: _bloodGroupController,
+                    placeHolderColor: Colors.white.withOpacity(0.6000000059604645),
                   ),
                   SizedBox(
                     height: 16,
                   ),
                   CustomTextField(
+                    textColor: Colors.white, boarderColor: Colors.white,
                     labelText: 'Zodiac Signs',
                     controller: _zodiacSignController,
+                    placeHolderColor: Colors.white.withOpacity(0.6000000059604645),
                   ),
                   SizedBox(
                     height: 16,
                   ),
                   CustomTextField(
+                    textColor: Colors.white, boarderColor: Colors.white,
                     labelText: 'Religion',
                     controller: _religionController,
+                    placeHolderColor: Colors.white.withOpacity(0.6000000059604645),
                   ),
                   SizedBox(
                     height: 16,
@@ -230,24 +245,28 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   Padding(
                     padding: const EdgeInsets.only(left: 28, right: 28),
                     child: CupertinoTextField(
+                      style: TextStyle(
+                        color: Colors.white
+                      ),
                       readOnly: true,
                       onTap: () => _selectDate(context),
                       decoration: BoxDecoration(
                         border: Border.all(
-                          color: appGreyColor,
+                          color: Colors.white,
                           width: 2.0,
                         ),
                         borderRadius: BorderRadius.circular(15.0),
                       ),
                       prefix: IconButton(
                         icon: Icon(Icons.calendar_today,
-                            color: Colors.black.withOpacity(0.5), size: 20),
+                            color: Colors.white.withOpacity(0.7), size: 20),
                         onPressed: () => _selectDate(context),
                       ),
                       controller: TextEditingController(
                         text: selectedDate == null
                             ? ''
                             : "${selectedDate!.day}/${selectedDate!.month}/${selectedDate!.year}",
+
                       ),
                     ),
                   ),
@@ -258,7 +277,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               PrimaryButton(
                 text: "Sign Up",
-                color: Colors.black,
+
+                color: Colors.white,
                 onPressed: registerUser
                 // Navigator.of(context).pushReplacement(
                 //   MaterialPageRoute(
@@ -266,7 +286,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 //   ),
                 // );
                 ,
-                textColor: Colors.white,
+                textColor: Colors.black,
               ),
               // const SizedBox(height: 28,),
 
@@ -284,7 +304,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   },
                   child: Text(
                     "Already have an account? Sign In",
-                    style: TextStyle(color: Colors.black),
+                    style: TextStyle(color: Colors.white),
                   )),
               const SizedBox(
                 height: 10,
@@ -296,15 +316,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     width: 94,
                     height: 0.50,
                     decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.4000000059604645),
+                      color: Colors.white.withOpacity(0.4000000059604645),
                     ),
                   ),
                   const SizedBox(
                     width: 10,
                   ),
-                  Text(
+                  const Text(
                     "OR Sign Up with",
-                    style: TextStyle(color: Colors.black),
+                    style: TextStyle(color: Colors.white)
                   ),
                   const SizedBox(
                     width: 10,
@@ -313,7 +333,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     width: 94,
                     height: 0.50,
                     decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.4000000059604645),
+                      color: Colors.white.withOpacity(0.4000000059604645),
                     ),
                   ),
                 ],

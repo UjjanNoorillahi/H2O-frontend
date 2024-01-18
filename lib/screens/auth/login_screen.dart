@@ -135,15 +135,21 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
 
               CustomTextField(
+
                 labelText: 'Email',
-                controller: _emailController,
+                placeHolderColor: Colors.black.withOpacity(0.6000000059604645),
+                controller: _emailController, textColor: Colors.black, boarderColor: appGreyColor,
               ),
               const SizedBox(
                 height: 16,
               ),
 
               CustomTextField(
+
+
+                textColor: Colors.black, boarderColor: appGreyColor,
                 labelText: 'Password',
+                placeHolderColor: Colors.black.withOpacity(0.6000000059604645),
                 controller: _passwordController,
               ),
               // const SizedBox(height: 16,),
