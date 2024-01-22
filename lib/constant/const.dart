@@ -15,6 +15,8 @@ const String primaryFont = "Adamina-Regular";
 
 const String seconaryFont = "Roboto-Regular";
 
+const String APP_ICON = "assets/logo/logo.png";
+
 // Primary Color
 const Color appPrimaryColor = Colors.black;
 // Secondary Color

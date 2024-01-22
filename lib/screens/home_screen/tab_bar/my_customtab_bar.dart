@@ -12,9 +12,9 @@ class MyCustomTabBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: CupertinoColors.white,
-        boxShadow: const [
+        boxShadow:  [
           BoxShadow(
             color: CupertinoColors.black,
             blurRadius: 4.0,

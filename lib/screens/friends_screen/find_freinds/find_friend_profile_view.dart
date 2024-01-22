@@ -21,7 +21,6 @@ class _FindFriendProfileScreenState extends State<FindFriendProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     // String suggestion = widget.suggestion;
     return CupertinoPageScaffold(
         // add navigation back button
@@ -50,8 +49,7 @@ class _FindFriendProfileScreenState extends State<FindFriendProfileScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-
-                  SizedBox(
+                  const SizedBox(
                     height: 100,
                   ),
                   // add image
@@ -67,12 +65,11 @@ class _FindFriendProfileScreenState extends State<FindFriendProfileScreen> {
                     ),
                   ),
 
-
                   const SizedBox(
                     height: 15,
                   ),
                   // add name
-                   Text(
+                  Text(
                     widget.suggestion.fullName,
                     style: TextStyle(
                       fontSize: 20,
@@ -95,18 +92,23 @@ class _FindFriendProfileScreenState extends State<FindFriendProfileScreen> {
                   ),
 
                   // add button
-                  isFriendSent ? PrimaryButton(
-                    onPressed: () {
-                      // toggleFriendRequest();
-                    },
-                    color: Colors.white, text: 'Friend Request Sent', textColor: Colors.black,
-                  ) :
-                  PrimaryButton(
-                    onPressed: () {
-                      toggleFriendRequest();
-                    },
-                    color: Colors.black, text: 'Add Friend', textColor: Colors.white,
-                  ),
+                  isFriendSent
+                      ? PrimaryButton(
+                          onPressed: () {
+                            // toggleFriendRequest();
+                          },
+                          color: Colors.white,
+                          text: 'Friend Request Sent',
+                          textColor: Colors.black,
+                        )
+                      : PrimaryButton(
+                          onPressed: () {
+                            toggleFriendRequest();
+                          },
+                          color: Colors.black,
+                          text: 'Add Friend',
+                          textColor: Colors.white,
+                        ),
                 ],
               ),
             ),

@@ -3,6 +3,8 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:h2o/constant/const.dart';
+import 'package:h2o/screens/Events/events_screen.dart';
+import 'package:h2o/screens/Housing_Transport_services/housing_transport.dart';
 import 'package:h2o/screens/auth/login_screen.dart';
 import 'package:h2o/screens/friends_screen/friends_suggestion_screen.dart';
 import 'package:h2o/screens/home_screen/widgets/black_balance_card.dart';
@@ -57,7 +59,7 @@ class _HomeState extends State<Home> {
     // add Cupertino app bar
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-        middle: Text('Dashboard'),
+        middle: const Text('Dashboard'),
         // add logout button
         trailing: CupertinoButton(
           onPressed: () {
@@ -65,7 +67,7 @@ class _HomeState extends State<Home> {
             // Add your logout logic here
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(
-                builder: (context) => LoginScreen(),
+                builder: (context) => const LoginScreen(),
               ),
             );
           },
@@ -75,225 +77,269 @@ class _HomeState extends State<Home> {
           ),
         ),
       ),
-      child: CupertinoTabScaffold(
-        tabBar: CupertinoTabBar(
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.home),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.chat_bubble_2_fill),
-              label: 'Chat',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.money_dollar_circle),
-              label: 'Wallet',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.person),
-              label: 'Profile',
-            ),
-          ],
-          onTap: (index) {
-            // Handle your navigation logic here
-            // create a switch statement to handle the navigation
-            switch (index) {
-              case 0:
-                // navigate to the Home screen
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                    builder: (context) => Home(),
-                  ),
-                );
+      child: Stack(
+        children: [
+          CupertinoTabScaffold(
+            tabBar: CupertinoTabBar(
+              items: const [
+                BottomNavigationBarItem(
+                  icon: Icon(CupertinoIcons.home),
+                  label: 'Home',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(CupertinoIcons.chat_bubble_2_fill),
+                  label: 'Chat',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(CupertinoIcons.squares_below_rectangle),
+                  label: 'Services',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(CupertinoIcons
+                      .add), // Replace 'path/to/custom_icon.png' with your custom icon path
+                  label: '',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(CupertinoIcons.money_dollar_circle),
+                  label: 'Wallet',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(CupertinoIcons.moon_stars_fill),
+                  label: 'Events',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(CupertinoIcons.person),
+                  label: 'Profile',
+                ),
+              ],
+              onTap: (index) {
+                // Handle your navigation logic here
+                // create a switch statement to handle the navigation
+                switch (index) {
+                  case 0:
+                    // navigate to the Home screen
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => Home(),
+                      ),
+                    );
 
-                break;
-              case 1:
-                // Navigate to the Chat screen
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                    builder: (context) => FriendsSuggestionPage(),
-                  ),
-                );
-                break;
-              case 2:
-                // Navigate to the Wallet screen
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                    builder: (context) => WalletScreen(),
-                  ),
-                );
-                break;
-              case 3:
-                // Navigate to the Profile screen
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                    builder: (context) => ProfileScreen(),
-                  ),
-                );
-                break;
-            }
-          },
-        ),
-        tabBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.only(top: 120.0),
-            child: Center(
-              child: Column(
-                children: [
-                  // Your existing widgets go here
-                  //Black Balance Card
-                  BlackBalanceCardWidget(availableBalance: availableBalance),
+                    break;
+                  case 1:
+                    // Navigate to the Chat screen
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => FriendsSuggestionPage(),
+                      ),
+                    );
+                    break;
+                  case 2:
+                    // Navigate to the Chat screen
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => HousingTransportScreen(),
+                      ),
+                    );
+                    break;
+                  case 4:
+                    // Navigate to the Wallet screen
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => WalletScreen(),
+                      ),
+                    );
+                    break;
+                  case 5:
+                    // Navigate to the Profile screen
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => EventsScreen(),
+                      ),
+                    );
+                    break;
+                  case 6:
+                    // Navigate to the Profile screen
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => ProfileScreen(),
+                      ),
+                    );
+                    break;
+                }
+              },
+            ),
+            tabBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.only(top: 120.0),
+                child: Center(
+                  // child: Stack(
+                  //   children: [
 
-                  const SizedBox(
-                    height: 12,
-                  ),
+                  child: Column(
+                    children: [
+                      // Your existing widgets go here
+                      //Black Balance Card
+                      BlackBalanceCardWidget(
+                          availableBalance: availableBalance),
 
-                  // Grey Balance Card
-                  GreyBalanceCardWidget(
-                    currentBalance: currentBalance,
-                    availableBalanceText: availableBalanceText,
-                  ),
-                  const SizedBox(
-                    height: 28,
-                  ),
-                  // short term goals text
-                  const Align(
-                    alignment: Alignment.centerLeft,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(left: 24.0, top: 3),
-                          child: SizedBox(
-                            width: 186,
-                            height: 20,
-                            child: Text(
-                              'Short term goals:',
-                              textAlign: TextAlign.left,
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 17,
-                                fontFamily: primaryFont,
-                                fontWeight: FontWeight.w400,
-                                height: 0.09,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  // Short Term Goals Cards
-                  Expanded(
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          // Short Term Goals Cards 1 (Daily Priority)
-                          ShortTermGoalWidget(
-                            goal: "Daily Priority",
-                            goalDescription:
-                                'Lorem ipsum dolor sit amet, consectetur adipisci.',
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          ShortTermGoalWidget(
-                            goal: "Weekly Priority",
-                            goalDescription:
-                                'Lorem ipsum dolor sit amet, consectetur adipisci.',
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          ShortTermGoalWidget(
-                            goal: "Monthly Priority",
-                            goalDescription:
-                                'Lorem ipsum dolor sit amet, consectetur adipisci.',
-                          ),
+                      const SizedBox(
+                        height: 12,
+                      ),
 
-                          const SizedBox(
-                            height: 35,
-                          ),
-                          const Align(
-                            alignment: Alignment.centerLeft,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.only(left: 24.0, top: 3),
-                                  child: SizedBox(
-                                    width: 186,
-                                    height: 20,
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          'Long term goals:',
-                                          textAlign: TextAlign.left,
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 17,
-                                            fontFamily: primaryFont,
-                                            fontWeight: FontWeight.w400,
-                                            height: 0.09,
-                                          ),
-                                        ),
-                                        const Spacer(),
-                                        // TextButton(
-                                        //   onPressed: () {},
-                                        //   child: const Text(
-                                        //     'Add',
-                                        //     textAlign: TextAlign.left,
-                                        //     style: TextStyle(
-                                        //       color: Colors.black,
-                                        //       fontSize: 17,
-                                        //       fontFamily: primaryFont,
-                                        //       fontWeight: FontWeight.w400,
-                                        //       height: 0.09,
-                                        //     ),
-                                        //   ),
-                                        // ),
-                                        // Spacer(),
-                                      ],
-                                    ),
+                      // Grey Balance Card
+                      GreyBalanceCardWidget(
+                        currentBalance: currentBalance,
+                        availableBalanceText: availableBalanceText,
+                      ),
+                      const SizedBox(
+                        height: 28,
+                      ),
+                      // short term goals text
+                      const Align(
+                        alignment: Alignment.centerLeft,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(left: 24.0, top: 3),
+                              child: SizedBox(
+                                width: 186,
+                                height: 20,
+                                child: Text(
+                                  'Short term goals:',
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 17,
+                                    fontFamily: primaryFont,
+                                    fontWeight: FontWeight.w400,
+                                    height: 0.09,
                                   ),
                                 ),
-                              ],
+                              ),
                             ),
-                          ),
-
-                          LongTermGoalWidget(
-                            goal: "Buying an Apartment",
-                            goalADescription:
-                                'Lorem ipsum dolor sit amet, consectetur adipisci.',
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          LongTermGoalWidget(
-                            goal: "Saving for a Car",
-                            goalADescription:
-                                'Lorem ipsum dolor sit amet, consectetur adipisci.',
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          LongTermGoalWidget(
-                            goal: "Saving for a Vacation Trip",
-                            goalADescription:
-                                'Lorem ipsum dolor sit amet, consectetur adipisci.',
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
+                      // Short Term Goals Cards
+                      Expanded(
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              // Short Term Goals Cards 1 (Daily Priority)
+                              ShortTermGoalWidget(
+                                goal: "Daily Priority",
+                                goalDescription:
+                                    'Lorem ipsum dolor sit amet, consectetur adipisci.',
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              ShortTermGoalWidget(
+                                goal: "Weekly Priority",
+                                goalDescription:
+                                    'Lorem ipsum dolor sit amet, consectetur adipisci.',
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              ShortTermGoalWidget(
+                                goal: "Monthly Priority",
+                                goalDescription:
+                                    'Lorem ipsum dolor sit amet, consectetur adipisci.',
+                              ),
+
+                              const SizedBox(
+                                height: 35,
+                              ),
+                              const Align(
+                                alignment: Alignment.centerLeft,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding:
+                                          EdgeInsets.only(left: 24.0, top: 3),
+                                      child: SizedBox(
+                                        width: 186,
+                                        height: 20,
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              'Long term goals:',
+                                              textAlign: TextAlign.left,
+                                              style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 17,
+                                                fontFamily: primaryFont,
+                                                fontWeight: FontWeight.w400,
+                                                height: 0.09,
+                                              ),
+                                            ),
+                                            Spacer(),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+
+                              LongTermGoalWidget(
+                                goal: "Buying an Apartment",
+                                goalADescription:
+                                    'Lorem ipsum dolor sit amet, consectetur adipisci.',
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              LongTermGoalWidget(
+                                goal: "Saving for a Car",
+                                goalADescription:
+                                    'Lorem ipsum dolor sit amet, consectetur adipisci.',
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              LongTermGoalWidget(
+                                goal: "Saving for a Vacation Trip",
+                                goalADescription:
+                                    'Lorem ipsum dolor sit amet, consectetur adipisci.',
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ),
-          );
-        },
+
+                  // Positioned icon in the bottom right corner
+
+                  // ],
+                ),
+              );
+            },
+          ),
+          // Positioned(
+          //   bottom: 18.0,
+          //   right: 16.0,
+          //   left: 16,
+          //   child: Container(
+          //     // height: 60,
+          //     // width: 60,
+          //     decoration: BoxDecoration(
+          //       color: Colors.white,
+          //       borderRadius: BorderRadius.circular(30),
+          //     ),
+          //     child: Image.asset(
+          //       "assets/logo/logo.png",
+          //       fit: BoxFit.cover, // You can adjust the fit as needed
+          //     ),
+          //   ),
+          // ),
+        ],
       ),
     );
   }

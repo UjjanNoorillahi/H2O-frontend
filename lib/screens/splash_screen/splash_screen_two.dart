@@ -1,17 +1,18 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:h2o/screens/splash_screen/splash_screen_two.dart';
 
-class SplashScreen extends StatefulWidget {
+import '../auth/login_screen.dart';
+
+class SplashScreenTwo extends StatefulWidget {
   static const routeName = '/splash_screen';
-  const SplashScreen({super.key});
+  const SplashScreenTwo({super.key});
 
   @override
-  _SplashScreenState createState() => _SplashScreenState();
+  _SplashScreenTwoState createState() => _SplashScreenTwoState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenTwoState extends State<SplashScreenTwo> {
   @override
   void initState() {
     super.initState();
@@ -19,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
       // Navigate to the welcome screen
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (context) => SplashScreenTwo(),
+          builder: (context) => LoginScreen(),
         ),
       );
     });
@@ -28,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.black,
 
       // appBar: AppBar(),
       body: SafeArea(
