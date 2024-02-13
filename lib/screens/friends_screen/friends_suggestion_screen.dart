@@ -90,7 +90,7 @@ class _FriendsSuggestionPageState extends State<FriendsSuggestionPage> {
     // final authTokenProvider = Provider.of<AuthTokenProvider>(context);
     return CupertinoPageScaffold(
         navigationBar: CupertinoNavigationBar(
-          middle: Text('Find Friends'),
+          middle: const Text('Find Friends'),
           leading: CupertinoNavigationBarBackButton(
             onPressed: () {
               Navigator.of(context).pushReplacement(
@@ -180,7 +180,7 @@ class _FriendsSuggestionPageState extends State<FriendsSuggestionPage> {
               ),
               Expanded(
                 child: isFriendsList == false
-                    ? Column(
+                    ? const Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [

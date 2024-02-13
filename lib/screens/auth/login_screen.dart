@@ -1,7 +1,9 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+// import 'package:fluttertoast/fluttertoast.dart';
 import 'package:h2o/screens/auth/sign_up_screen.dart';
 import 'package:h2o/screens/home_screen/home_screen.dart';
 import 'package:h2o/widgets/primary_button.dart';
@@ -29,36 +31,66 @@ class _LoginScreenState extends State<LoginScreen> {
   bool isLogin = false;
 
   void toggleLogin() {
-    isLogin = !isLogin;
+    // isLogin = !isLogin;
     setState(() {});
   }
 
   void performLogin(String emailController, String passwordController) async {
+    isLogin = true;
+    toggleLogin();
     String username = emailController;
     String password = passwordController;
+    if (username.isEmpty || password.isEmpty) {
+      // add 3 seconds timer
 
-    toggleLogin();
-    AuthService authService = AuthService();
+      Timer(const Duration(seconds: 2), () {
+        // toggleLogin();
+        isLogin = false;
+        toggleLogin();
+      });
 
-    LoginResponse? loginResponse =
-        await authService.loginUser(username, password);
+      // show toast to enter email and password
 
-    // if (loginResponse != null) {
-    toggleLogin();
-    print("Login successful!");
+      return;
+    } else {
+      isLogin = true;
+      toggleLogin();
+      AuthService authService = AuthService();
 
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: (context) => Home(),
-        // builder: (context) => FindFriendsScreen(),
-      ),
-    );
+      try {
+        LoginResponse? loginResponse =
+            await authService.loginUser(username, password);
 
-    // getUserData(loginResponse.token);
-    // } else {
-    //   print("Login failed.");
-    //   // Add error handling or display an error message
-    // }
+        if (loginResponse != null) {
+          print(loginResponse.toString());
+          toggleLogin();
+          print("Login successful!");
+          isLogin = false;
+          toggleLogin();
+
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (context) => Home(),
+              // builder: (context) => FindFriendsScreen(),
+            ),
+          );
+
+          // getUserData(loginResponse.token);
+          // } else {
+          //   print("Login failed.");
+          //   // Add error handling or display an error message
+        } else if (loginResponse?.message != 'Login successful') {
+          print("Login failed.");
+          isLogin = false;
+          toggleLogin();
+          // Add error handling or display an error message
+        }
+      } catch (e) {
+        isLogin = false;
+        toggleLogin();
+        print(e);
+      }
+    }
   }
 
   void getUserData(authToken) async {
@@ -135,19 +167,21 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
 
               CustomTextField(
-
                 labelText: 'Email',
                 placeHolderColor: Colors.black.withOpacity(0.6000000059604645),
-                controller: _emailController, textColor: Colors.black, boarderColor: appGreyColor,
+                controller: _emailController,
+                obscureText: false,
+                textColor: Colors.black,
+                boarderColor: appGreyColor,
               ),
               const SizedBox(
                 height: 16,
               ),
 
               CustomTextField(
-
-
-                textColor: Colors.black, boarderColor: appGreyColor,
+                textColor: Colors.black,
+                boarderColor: appGreyColor,
+                obscureText: true,
                 labelText: 'Password',
                 placeHolderColor: Colors.black.withOpacity(0.6000000059604645),
                 controller: _passwordController,
@@ -157,16 +191,51 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(
                 height: 18,
               ),
-              PrimaryButton(
-                text: "Sign In", color: Colors.black,
-                onPressed: () => performLogin(
-                    _emailController.text, _passwordController.text),
-                // Navigator.of(context).pushReplacement(
-                //   MaterialPageRoute(
-                //     builder: (context) => ChooseGender(),
-                //   ),
-                // );
-                textColor: Colors.white,
+              // PrimaryButton(
+              //   text: "Sign In", color: Colors.black,
+              //   onPressed: () => performLogin(
+              //       _emailController.text, _passwordController.text),
+              //   // Navigator.of(context).pushReplacement(
+              //   //   MaterialPageRoute(
+              //   //     builder: (context) => ChooseGender(),
+              //   //   ),
+              //   // );
+              //   textColor: Colors.white,
+              // ),
+
+              // custom Sign in button
+              Container(
+                width: 295,
+                height: 56,
+                decoration: ShapeDecoration(
+                  color: Colors.black,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                ),
+                child: ElevatedButton(
+                  onPressed: () => performLogin(
+                      _emailController.text, _passwordController.text),
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.black,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                  ),
+                  child: isLogin
+                      ? CupertinoActivityIndicator(
+                          radius: 15,
+                          color: Colors.white,
+                        )
+                      : const Text(
+                          "Sign In",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontFamily: 'Adamina-Regular',
+                              fontWeight: FontWeight.w400),
+                        ),
+                ),
               ),
               const SizedBox(
                 height: 24,

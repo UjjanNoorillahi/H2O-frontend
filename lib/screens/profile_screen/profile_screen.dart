@@ -16,7 +16,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return CupertinoPageScaffold(
         // add navigation back button
         navigationBar: CupertinoNavigationBar(
-          middle: Text('Wallet'),
+          middle: Text('Profile'),
           leading: CupertinoNavigationBarBackButton(
             onPressed: () {
               Navigator.of(context).pushReplacement(

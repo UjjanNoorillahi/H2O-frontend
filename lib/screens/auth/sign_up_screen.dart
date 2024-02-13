@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:h2o/constant/const.dart';
 import 'package:h2o/screens/auth/login_screen.dart';
+import 'package:h2o/screens/home_screen/home_screen.dart';
 import 'package:h2o/widgets/custom_textfield.dart';
-import 'package:h2o/widgets/primary_button.dart';
+import 'package:toastification/toastification.dart';
 
 import '../../Services/sign_up_api.dart';
 import '../../models/sign_up_request.dart';
-import '../friends_screen/find_freinds/find_friends_screen.dart';
+import '../../widgets/custom_password_textfield.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -27,6 +27,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController _birthdateController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
+  TextEditingController _confirmPasswordController = TextEditingController();
+  TextEditingController _bloodtypeController = TextEditingController();
+
+  bool isSignUp = false;
 
   // Future<void> _selectDate(BuildContext context) async {
   //   final DateTime? picked = await showDatePicker(
@@ -78,44 +82,80 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   void registerUser() async {
+    isSignUp = true;
+    setState(() {});
+    String bloodGroup = _bloodGroupController.text + _bloodtypeController.text;
     // Get data from controllers
     String firstName = _firstNameController.text;
     String lastName = _lastNameController.text;
-    String bloodType = _bloodGroupController.text;
+    String bloodType = bloodGroup;
     String religion = _religionController.text;
     String zodiacSign = _zodiacSignController.text;
     String birthDate = "12/12/2012";
     String email = _emailController.text;
     String password = _passwordController.text;
+    String confirmPassword = _confirmPasswordController.text;
 
-    // Create SignUpRequest instance
-    SignUpRequest signUpRequest = SignUpRequest(
-      fullName: firstName,
-      gender: "male",
-      bloodType: bloodType,
-      religion: religion,
-      zodiacSign: zodiacSign,
-      birthDate: birthDate,
-      email: email,
-      password: password,
-    );
-
-    // Call the API
-    bool success = await SignUpApi().signUp(signUpRequest);
-
-    // Handle the result, you can show a message or navigate to another screen
-    if (success) {
-      print("Signup successful!");
-      // Add your navigation logic here
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) => FindFriendsScreen(),
-        ),
+    if (password != confirmPassword) {
+      toastification.show(
+        context: context,
+        title: Text('Password is not equal'),
+        autoCloseDuration: const Duration(seconds: 2),
       );
-    } else {
-      print("Signup failed.");
-      print(signUpRequest.toJson());
-      // Add error handling or display an error message
+      return;
+    }
+
+    try {
+      // Create SignUpRequest instance
+      SignUpRequest signUpRequest = SignUpRequest(
+        fullName: firstName,
+        gender: "male",
+        bloodType: bloodType,
+        religion: religion,
+        zodiacSign: zodiacSign,
+        birthDate: birthDate,
+        email: email,
+        password: password,
+      );
+
+      // Call the API
+      bool success = await SignUpApi().signUp(signUpRequest);
+
+      // Handle the result, you can show a message or navigate to another screen
+
+      if (bloodGroup == "" ||
+          firstName == "" ||
+          lastName == "" ||
+          bloodType == "" ||
+          religion == "" ||
+          zodiacSign == "" ||
+          birthDate == "" ||
+          email == "" ||
+          password == "") {
+        isSignUp = false;
+        setState(() {});
+      } else if (success == true) {
+        print(success);
+        isSignUp = false;
+        setState(() {});
+        print("Signup successful!");
+        // Add your navigation logic here
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => Home(),
+          ),
+        );
+      } else {
+        print("Signup failed.");
+        isSignUp = false;
+        setState(() {});
+        print(signUpRequest.toJson());
+        // Add error handling or display an error message
+      }
+    } catch (e) {
+      isSignUp = false;
+      setState(() {});
+      print(e);
     }
   }
 
@@ -132,13 +172,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               const Text(
                 "Profile details",
-
-                style: TextStyle(fontSize: 45, fontWeight: FontWeight.w500, color: Colors.white),
+                style: TextStyle(
+                    fontSize: 45,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white),
               ),
               const SizedBox(
                 height: 20,
               ),
-              Image.asset("assets/logo/logo.png", scale: 1.5,),
+              Image.asset(
+                "assets/logo/logo.png",
+                scale: 1.5,
+              ),
               const SizedBox(
                 height: 10,
               ),
@@ -155,16 +200,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 children: [
                   CustomTextField(
                     labelText: 'First Name',
-                    controller: _firstNameController, textColor: Colors.white, boarderColor: Colors.white,
-                    placeHolderColor: Colors.white.withOpacity(0.6000000059604645),
-
+                    controller: _firstNameController,
+                    textColor: Colors.white,
+                    boarderColor: Colors.white,
+                    obscureText: false,
+                    placeHolderColor:
+                        Colors.white.withOpacity(0.6000000059604645),
                   ),
                   SizedBox(
                     height: 16,
                   ),
                   CustomTextField(
-                    textColor: Colors.white, boarderColor: Colors.white,
-                    placeHolderColor: Colors.white.withOpacity(0.6000000059604645),
+                    textColor: Colors.white,
+                    boarderColor: Colors.white,
+                    obscureText: false,
+                    placeHolderColor:
+                        Colors.white.withOpacity(0.6000000059604645),
                     labelText: 'Last Name',
                     controller: _lastNameController,
                   ),
@@ -172,46 +223,96 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     height: 16,
                   ),
                   CustomTextField(
-                    textColor: Colors.white, boarderColor: Colors.white,
-                    placeHolderColor: Colors.white.withOpacity(0.6000000059604645),
+                    textColor: Colors.white,
+                    boarderColor: Colors.white,
+                    obscureText: false,
+                    placeHolderColor:
+                        Colors.white.withOpacity(0.6000000059604645),
                     labelText: 'Email',
                     controller: _emailController,
                   ),
                   const SizedBox(
                     height: 16,
                   ),
-                  CustomTextField(
-                    textColor: Colors.white, boarderColor: Colors.white,
-                    placeHolderColor: Colors.white.withOpacity(0.6000000059604645),
+                  // CustomTextField(
+                  //   textColor: Colors.white,
+                  //   boarderColor: Colors.white,
+                  //   obscureText: true,
+                  //   placeHolderColor:
+                  //       Colors.white.withOpacity(0.6000000059604645),
+                  //   labelText: 'Password',
+                  //   controller: _passwordController,
+                  // ),
+
+                  CustomPasswordTextField(
+                    textColor: Colors.white,
+                    boarderColor: Colors.white,
+                    obscureText: true,
+                    placeHolderColor: Colors.white.withOpacity(0.6),
                     labelText: 'Password',
                     controller: _passwordController,
+                  ),
+
+                  const SizedBox(
+                    height: 16,
+                  ),
+
+                  CustomPasswordTextField(
+                    textColor: Colors.white,
+                    boarderColor: Colors.white,
+                    obscureText: true,
+                    placeHolderColor: Colors.white.withOpacity(0.6),
+                    labelText: 'Confirm Password',
+                    controller: _confirmPasswordController,
                   ),
                   const SizedBox(
                     height: 16,
                   ),
                   CustomTextField(
-                    textColor: Colors.white, boarderColor: Colors.white,
+                    textColor: Colors.white,
+                    boarderColor: Colors.white,
                     labelText: 'Blood Group',
+                    obscureText: false,
                     controller: _bloodGroupController,
-                    placeHolderColor: Colors.white.withOpacity(0.6000000059604645),
+                    placeHolderColor:
+                        Colors.white.withOpacity(0.6000000059604645),
+                  ),
+                  SizedBox(
+                    height: 16,
+                  ),
+
+                  CustomTextField(
+                    textColor: Colors.white,
+                    boarderColor: Colors.white,
+                    labelText: 'RH Type (+/-)',
+                    controller: _bloodtypeController,
+                    obscureText: false,
+                    placeHolderColor:
+                        Colors.white.withOpacity(0.6000000059604645),
                   ),
                   SizedBox(
                     height: 16,
                   ),
                   CustomTextField(
-                    textColor: Colors.white, boarderColor: Colors.white,
+                    textColor: Colors.white,
+                    boarderColor: Colors.white,
                     labelText: 'Zodiac Signs',
+                    obscureText: false,
                     controller: _zodiacSignController,
-                    placeHolderColor: Colors.white.withOpacity(0.6000000059604645),
+                    placeHolderColor:
+                        Colors.white.withOpacity(0.6000000059604645),
                   ),
                   SizedBox(
                     height: 16,
                   ),
                   CustomTextField(
-                    textColor: Colors.white, boarderColor: Colors.white,
+                    textColor: Colors.white,
+                    boarderColor: Colors.white,
                     labelText: 'Religion',
+                    obscureText: false,
                     controller: _religionController,
-                    placeHolderColor: Colors.white.withOpacity(0.6000000059604645),
+                    placeHolderColor:
+                        Colors.white.withOpacity(0.6000000059604645),
                   ),
                   SizedBox(
                     height: 16,
@@ -245,9 +346,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   Padding(
                     padding: const EdgeInsets.only(left: 28, right: 28),
                     child: CupertinoTextField(
-                      style: TextStyle(
-                        color: Colors.white
-                      ),
+                      style: TextStyle(color: Colors.white),
                       readOnly: true,
                       onTap: () => _selectDate(context),
                       decoration: BoxDecoration(
@@ -266,7 +365,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         text: selectedDate == null
                             ? ''
                             : "${selectedDate!.day}/${selectedDate!.month}/${selectedDate!.year}",
-
                       ),
                     ),
                   ),
@@ -275,18 +373,50 @@ class _SignUpScreenState extends State<SignUpScreen> {
               const SizedBox(
                 height: 18,
               ),
-              PrimaryButton(
-                text: "Sign Up",
+              // PrimaryButton(
+              //   text: "Sign Up",
+              //   color: Colors.white,
+              //   onPressed: registerUser
+              //   // Navigator.of(context).pushReplacement(
+              //   //   MaterialPageRoute(
+              //   //     builder: (context) => ChooseGender(),
+              //   //   ),
+              //   // );
+              //   ,
+              //   textColor: Colors.black,
+              // ),
 
-                color: Colors.white,
-                onPressed: registerUser
-                // Navigator.of(context).pushReplacement(
-                //   MaterialPageRoute(
-                //     builder: (context) => ChooseGender(),
-                //   ),
-                // );
-                ,
-                textColor: Colors.black,
+              Container(
+                width: 295,
+                height: 56,
+                decoration: ShapeDecoration(
+                  color: Colors.black,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                ),
+                child: ElevatedButton(
+                  onPressed: registerUser,
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                  ),
+                  child: isSignUp
+                      ? CupertinoActivityIndicator(
+                          radius: 15,
+                          color: Colors.black,
+                        )
+                      : const Text(
+                          "Sign Up",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 18,
+                              fontFamily: 'Adamina-Regular',
+                              fontWeight: FontWeight.w400),
+                        ),
+                ),
               ),
               // const SizedBox(height: 28,),
 
@@ -322,10 +452,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   const SizedBox(
                     width: 10,
                   ),
-                  const Text(
-                    "OR Sign Up with",
-                    style: TextStyle(color: Colors.white)
-                  ),
+                  const Text("OR Sign Up with",
+                      style: TextStyle(color: Colors.white)),
                   const SizedBox(
                     width: 10,
                   ),

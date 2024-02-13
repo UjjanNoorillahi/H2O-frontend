@@ -62,7 +62,9 @@ class _HomeState extends State<Home> {
         middle: const Text('Dashboard'),
         // add logout button
         trailing: CupertinoButton(
-          onPressed: () {
+          onPressed: () async {
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            prefs.remove('data');
             // await getUserData();
             // Add your logout logic here
             Navigator.of(context).pushReplacement(
@@ -81,6 +83,7 @@ class _HomeState extends State<Home> {
         children: [
           CupertinoTabScaffold(
             tabBar: CupertinoTabBar(
+              activeColor: Colors.black,
               items: const [
                 BottomNavigationBarItem(
                   icon: Icon(CupertinoIcons.home),
@@ -231,7 +234,7 @@ class _HomeState extends State<Home> {
                               ShortTermGoalWidget(
                                 goal: "Daily Priority",
                                 goalDescription:
-                                    'Lorem ipsum dolor sit amet, consectetur adipisci.',
+                                    'Lorem ipsum dolor sit amet, consectetur.',
                               ),
                               const SizedBox(
                                 height: 10,
@@ -239,7 +242,7 @@ class _HomeState extends State<Home> {
                               ShortTermGoalWidget(
                                 goal: "Weekly Priority",
                                 goalDescription:
-                                    'Lorem ipsum dolor sit amet, consectetur adipisci.',
+                                    'Lorem ipsum dolor sit amet, consectetur.',
                               ),
                               const SizedBox(
                                 height: 10,
@@ -247,7 +250,7 @@ class _HomeState extends State<Home> {
                               ShortTermGoalWidget(
                                 goal: "Monthly Priority",
                                 goalDescription:
-                                    'Lorem ipsum dolor sit amet, consectetur adipisci.',
+                                    'Lorem ipsum dolor sit amet, consectetur.',
                               ),
 
                               const SizedBox(
@@ -290,7 +293,7 @@ class _HomeState extends State<Home> {
                               LongTermGoalWidget(
                                 goal: "Buying an Apartment",
                                 goalADescription:
-                                    'Lorem ipsum dolor sit amet, consectetur adipisci.',
+                                    'Lorem ipsum dolor sit amet, consectetur.',
                               ),
                               const SizedBox(
                                 height: 10,
@@ -298,7 +301,7 @@ class _HomeState extends State<Home> {
                               LongTermGoalWidget(
                                 goal: "Saving for a Car",
                                 goalADescription:
-                                    'Lorem ipsum dolor sit amet, consectetur adipisci.',
+                                    'Lorem ipsum dolor sit amet, consectetur.',
                               ),
                               const SizedBox(
                                 height: 10,
@@ -306,7 +309,7 @@ class _HomeState extends State<Home> {
                               LongTermGoalWidget(
                                 goal: "Saving for a Vacation Trip",
                                 goalADescription:
-                                    'Lorem ipsum dolor sit amet, consectetur adipisci.',
+                                    'Lorem ipsum dolor sit amet, consectetur.',
                               ),
                             ],
                           ),

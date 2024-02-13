@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../models/get_user_data_model.dart';
-import '../screens/friends_screen/find_freinds/find_friend_profile_view.dart';
+import '../screens/chat_screen/chat_screen.dart';
 
 class FriendSuggestionCard extends StatelessWidget {
   final FriendSuggestion suggestion;
@@ -26,11 +26,11 @@ class FriendSuggestionCard extends StatelessWidget {
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(
                 builder: (context) =>
-                    FindFriendProfileScreen(suggestion: suggestion),
+                    // FindFriendProfileScreen(suggestion: suggestion),
 
-                //     ChatScreen(
-                //   suggestion: suggestion,
-                // ),
+                    ChatScreen(
+                  suggestion: suggestion,
+                ),
               ),
             );
           },

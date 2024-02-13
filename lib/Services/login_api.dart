@@ -23,8 +23,18 @@ class AuthService {
       if (response.statusCode == 200) {
         final Map<String, dynamic> responseData = jsonDecode(response.body);
         print("User Token: ");
+        print(responseData['data']);
 
-        print(responseData.toString());
+        //////// Save the user to sharedPreferences ////////////
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        // String userJsonString = response.body;
+        final responseDataa =
+            json.decode(response.body); // Parse the JSON response
+        final user = responseData['data']; // Extract the user object
+        // Save the user object in SharedPreferences.
+        prefs.setString('data', json.encode(responseData['data']));
+        //////////////////////
+        // print(responseData.toString());
 
         // Store data in shared preferences
         await storeUserDataInPreferences(responseData);

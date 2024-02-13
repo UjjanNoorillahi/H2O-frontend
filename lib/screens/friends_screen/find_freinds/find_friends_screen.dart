@@ -50,7 +50,7 @@ class _FindFriendsScreenState extends State<FindFriendsScreen> {
               ),
 
               const SizedBox(
-                height: 20,
+                height: 10,
               ),
 
               timer

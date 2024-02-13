@@ -1,6 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:h2o/constant/const.dart';
 
 class CustomTextField extends StatelessWidget {
   final String labelText;
@@ -8,32 +6,32 @@ class CustomTextField extends StatelessWidget {
   final Color textColor;
   final Color boarderColor;
   final Color placeHolderColor;
+  final bool obscureText;
 
-  CustomTextField({
-    required this.labelText,
-    required this.controller,
-    required this.textColor,
-    required this.boarderColor,
-    required this.placeHolderColor,
-  });
+  CustomTextField(
+      {required this.labelText,
+      required this.controller,
+      required this.textColor,
+      required this.boarderColor,
+      required this.placeHolderColor,
+      required this.obscureText});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 28, right: 28),
-
       child: CupertinoTextField(
         controller: controller,
         keyboardType: TextInputType.text,
         padding: const EdgeInsets.all(20),
         placeholder: labelText,
-        placeholderStyle:  TextStyle(
+        obscureText: obscureText,
+        placeholderStyle: TextStyle(
           color: placeHolderColor,
 
           // CupertinoColors.placeholderText,
-
         ),
-        style:  TextStyle(
+        style: TextStyle(
           color: textColor, // Adjust the text color as needed
         ),
         decoration: BoxDecoration(

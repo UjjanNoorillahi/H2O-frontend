@@ -120,9 +120,8 @@ class _ChooseGenderState extends State<ChooseGender> {
                 padding: const EdgeInsets.only(left: 34, right: 34),
                 child: CustomTextField(
                   placeHolderColor: Colors.white,
-
+                  obscureText: false,
                   textColor: Colors.black,
-
                   boarderColor: Colors.black,
                   labelText: 'Another',
                   controller: _anotherGenderController,
