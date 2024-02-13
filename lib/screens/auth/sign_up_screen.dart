@@ -102,6 +102,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         title: Text('Password is not equal'),
         autoCloseDuration: const Duration(seconds: 2),
       );
+      isSignUp = false;
       return;
     }
 
@@ -364,7 +365,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       controller: TextEditingController(
                         text: selectedDate == null
                             ? ''
-                            : "${selectedDate!.day}/${selectedDate!.month}/${selectedDate!.year}",
+                            : "${selectedDate!.month}/${selectedDate!.day}/${selectedDate!.year}",
                       ),
                     ),
                   ),

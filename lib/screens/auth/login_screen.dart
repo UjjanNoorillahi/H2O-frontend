@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 // import 'package:fluttertoast/fluttertoast.dart';
 import 'package:h2o/screens/auth/sign_up_screen.dart';
 import 'package:h2o/screens/home_screen/home_screen.dart';
-import 'package:h2o/widgets/primary_button.dart';
 import 'package:provider/provider.dart';
+import 'package:toastification/toastification.dart';
 
 import '../../Services/login_api.dart';
 import '../../Services/user_data_service.dart';
@@ -36,6 +36,24 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void performLogin(String emailController, String passwordController) async {
+    // show toast if email and password is empty
+    if (emailController.isEmpty) {
+      toastification.show(
+        context: context,
+        title: const Text('Login Failed!'),
+        description: const Text('Please enter your email.'),
+        autoCloseDuration: const Duration(seconds: 3),
+      );
+      return;
+    } else if (passwordController.isEmpty) {
+      toastification.show(
+        context: context,
+        title: const Text('Login Failed!'),
+        description: const Text('Please enter your password.'),
+        autoCloseDuration: const Duration(seconds: 3),
+      );
+      return;
+    }
     isLogin = true;
     toggleLogin();
     String username = emailController;
@@ -80,6 +98,12 @@ class _LoginScreenState extends State<LoginScreen> {
           //   print("Login failed.");
           //   // Add error handling or display an error message
         } else if (loginResponse?.message != 'Login successful') {
+          toastification.show(
+            context: context,
+            title: const Text('Login Failed!'),
+            description: const Text('Please enter valid email and password.'),
+            autoCloseDuration: const Duration(seconds: 3),
+          );
           print("Login failed.");
           isLogin = false;
           toggleLogin();
@@ -183,9 +207,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 boarderColor: appGreyColor,
                 obscureText: true,
                 labelText: 'Password',
-                placeHolderColor: Colors.black.withOpacity(0.6000000059604645),
+                placeHolderColor: Colors.black.withOpacity(0.6),
                 controller: _passwordController,
+                showPassword: true, // Enable show password functionality
               ),
+
               // const SizedBox(height: 16,),
 
               const SizedBox(

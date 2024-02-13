@@ -1,21 +1,35 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:h2o/provider/auth_token_provider.dart';
+import 'package:h2o/screens/home_screen/home_screen.dart';
 import 'package:h2o/screens/splash_screen/splash_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   // Ensure that Flutter binding is initialized
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Lock the app to portrait mode
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
-  ]);
+  ]).then((_) async {
+    final prefs = await SharedPreferences.getInstance();
+    final userJsonString = prefs.getString('data');
 
-  runApp(const MyApp());
+    runApp(MyApp(
+      initialRoute: userJsonString != null ? 'home' : 'login',
+    ));
+  });
 
+  // // Lock the app to portrait mode
+  // SystemChrome.setPreferredOrientations([
+  //   DeviceOrientation.portraitUp,
+  //   DeviceOrientation.portraitDown,
+  // ]);
+  //
+  // runApp(const MyApp());
+  //
   //     .then((_) async {
   //   final prefs = await SharedPreferences.getInstance();
   //   final userJsonString = prefs.getString('data');
@@ -29,10 +43,11 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  // final String initialRoute;
+  final String initialRoute;
 
   const MyApp({
     super.key,
+    required this.initialRoute,
   });
 
   @override
@@ -41,15 +56,15 @@ class MyApp extends StatelessWidget {
         providers: [
           ChangeNotifierProvider(create: (context) => AuthTokenProvider()),
         ],
-        child: const CupertinoApp(
+        child: CupertinoApp(
           debugShowCheckedModeBanner: false,
           title: 'Flutter Demo',
-          theme: CupertinoThemeData(
+          theme: const CupertinoThemeData(
             // Set a light theme explicitly
             brightness: Brightness.light,
             // Add other theme properties as needed
           ),
-          home: SplashScreen(),
+          home: initialRoute == 'login' ? SplashScreen() : Home(),
         ));
   }
 }
