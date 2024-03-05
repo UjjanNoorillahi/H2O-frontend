@@ -198,8 +198,8 @@ class _ChatScreenState extends State<ChatScreen> {
     final apiService = SendMessageServiceApi();
     final token = userToken;
     final messageRequest = MessageRequest(
-      receiverId: '6567780f54691f117a90f0ee',
-      content: 'Hello',
+      receiverId: '65b0d6c110d3708e9b2134ed',
+      content: userMessageController.text,
     );
 
     try {
@@ -214,7 +214,38 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   void initState() {
     super.initState();
+    initializeWebSocket();
   }
+
+  void initializeWebSocket() async {
+    socketIOService = SocketIOService();
+    await socketIOService.connect();
+
+    socketIOService.socket.on('privateMessageSent', (data) {
+      // Assuming `data` is a Map<String, dynamic> or similar that contains message details
+      setState(() {
+        _messages.add({
+          'message': data[
+              'message'], // Adjust according to how your data is structured
+          'from':
+              'receiver', // Determine if it's 'sender' or 'receiver' based on your logic
+        });
+      });
+    });
+  }
+
+  // void sendMessage(String message) {
+  //   // Use the SocketIOService to send the message
+  //   socketIOService.sendMessage(message);
+  //
+  //   // Optionally, add the message to your local list for immediate UI update
+  //   setState(() {
+  //     _messages.add({
+  //       'message': message,
+  //       'from': 'sender',
+  //     });
+  //   });
+  // }
 
   @override
   void dispose() {
@@ -267,43 +298,48 @@ class _ChatScreenState extends State<ChatScreen> {
                                 //   ),
                                 // );
                               },
-                              child: Container(
-                                // change boarder color
+                              child: Flexible(
+                                child: Container(
+                                  // change boarder color
 
-                                margin: EdgeInsets.only(
-                                    left: _messages[index]['from'] == 'sender'
-                                        ? 80
-                                        : 5,
-                                    right: _messages[index]['from'] == 'sender'
-                                        ? 5
-                                        : 80,
-                                    top: _messages[index]['from'] == 'sender'
-                                        ? 10
-                                        : 2,
-                                    bottom: 0),
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 10, horizontal: 10),
-                                decoration: BoxDecoration(
-                                  border: Border.all(
+                                  margin: EdgeInsets.only(
+                                      left: _messages[index]['from'] == 'sender'
+                                          ? 80
+                                          : 5,
+                                      right:
+                                          _messages[index]['from'] == 'sender'
+                                              ? 5
+                                              : 80,
+                                      top: _messages[index]['from'] == 'sender'
+                                          ? 10
+                                          : 2,
+                                      bottom: 0),
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 10, horizontal: 10),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color:
+                                          _messages[index]['from'] == 'sender'
+                                              ? Colors.black
+                                              : Colors.black,
+                                      width: 1,
+                                    ),
+                                    borderRadius: BorderRadius.circular(15),
                                     color: _messages[index]['from'] == 'sender'
-                                        ? Colors.black
+                                        ? Colors.white
                                         : Colors.black,
-                                    width: 1,
                                   ),
-                                  borderRadius: BorderRadius.circular(15),
-                                  color: _messages[index]['from'] == 'sender'
-                                      ? Colors.white
-                                      : Colors.black,
-                                ),
-                                child: Text(
-                                  _messages[index]['message'],
-                                  style: TextStyle(
-                                    // backgroundColor: themeColor1,
-                                    // sender text color in black color
-                                    color: _messages[index]['from'] == 'sender'
-                                        ? Colors.black
-                                        : Colors.white,
-                                    // color: Colors.white.withOpacity(0.9),
+                                  child: Text(
+                                    _messages[index]['message'],
+                                    style: TextStyle(
+                                      // backgroundColor: themeColor1,
+                                      // sender text color in black color
+                                      color:
+                                          _messages[index]['from'] == 'sender'
+                                              ? Colors.black
+                                              : Colors.white,
+                                      // color: Colors.white.withOpacity(0.9),
+                                    ),
                                   ),
                                 ),
                               ),
