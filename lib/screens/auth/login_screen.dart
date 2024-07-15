@@ -152,36 +152,34 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Center(
           child: Column(
             children: [
-              Container(
-                child: const Padding(
-                    padding: EdgeInsets.only(left: 24, right: 180, top: 55),
-                    child: Column(
-                      children: [
-                        Text(
-                          'Login to H2O',
-                          // textAlign: TextAlign.left,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 30,
-                            fontFamily: primaryFont,
-                            fontWeight: FontWeight.w600,
-                            // letterSpacing: -0.56,
-                          ),
+              const Padding(
+                  padding: EdgeInsets.only(left: 24, right: 180, top: 55),
+                  child: Column(
+                    children: [
+                      Text(
+                        'Login to H2O',
+                        // textAlign: TextAlign.left,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 30,
+                          fontFamily: primaryFont,
+                          fontWeight: FontWeight.w600,
+                          // letterSpacing: -0.56,
                         ),
-                        Text(
-                          'Enter your email and password.',
-                          // textAlign: TextAlign.left,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 12,
-                            fontFamily: primaryFont,
-                            // fontWeight: FontWeight.w500,
-                            // letterSpacing: -0.56,
-                          ),
+                      ),
+                      Text(
+                        'Enter your email and password.',
+                        // textAlign: TextAlign.left,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 12,
+                          fontFamily: primaryFont,
+                          // fontWeight: FontWeight.w500,
+                          // letterSpacing: -0.56,
                         ),
-                      ],
-                    )),
-              ),
+                      ),
+                    ],
+                  )),
 
               // const SizedBox(height: 100,),
               Image.asset("assets/logo/logo.png"),
@@ -279,56 +277,56 @@ class _LoginScreenState extends State<LoginScreen> {
                     "Don't have an account? Sign Up",
                     style: TextStyle(color: Colors.black),
                   )),
-              const SizedBox(
-                height: 10,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    width: 94,
-                    height: 0.50,
-                    decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.4000000059604645),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  const Text(
-                    "OR Sign In with",
-                    style: TextStyle(color: Colors.black),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Container(
-                    width: 94,
-                    height: 0.50,
-                    decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.4000000059604645),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 24,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset("assets/logo/apple_icon.png"),
-                  const SizedBox(width: 20),
-                  Image.asset("assets/logo/google_icon.png"),
-                ],
-              ),
+              // const SizedBox(
+              //   height: 10,
+              // ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     Container(
+              //       width: 94,
+              //       height: 0.50,
+              //       decoration: BoxDecoration(
+              //         color: Colors.black.withOpacity(0.4000000059604645),
+              //       ),
+              //     ),
+              //     const SizedBox(
+              //       width: 10,
+              //     ),
+              //     const Text(
+              //       "OR Sign In with",
+              //       style: TextStyle(color: Colors.black),
+              //     ),
+              //     const SizedBox(
+              //       width: 10,
+              //     ),
+              //     Container(
+              //       width: 94,
+              //       height: 0.50,
+              //       decoration: BoxDecoration(
+              //         color: Colors.black.withOpacity(0.4000000059604645),
+              //       ),
+              //     ),
+              //   ],
+              // ),
+              // const SizedBox(
+              //   height: 24,
+              // ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     Image.asset("assets/logo/apple_icon.png"),
+              //     const SizedBox(width: 20),
+              //     Image.asset("assets/logo/google_icon.png"),
+              //   ],
+              // ),
 
-              const SizedBox(
-                height: 50,
-              ),
-              Container(
-                child: const Text("Terms of use  Privacy Policy"),
-              )
+              // const SizedBox(
+              //   height: 50,
+              // ),
+              // Container(
+              //   child: const Text("Terms of use  Privacy Policy"),
+              // )
             ],
           ),
         ),
