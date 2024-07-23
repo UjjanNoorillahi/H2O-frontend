@@ -60,8 +60,16 @@ class _HomeState extends State<Home> {
 
       EventService(),
     );
-
-    return CupertinoPageScaffold(
+//TODO : Need to design teh screens in this fashion
+    // return SafeArea(
+    //   child: Scaffold(
+    //     appBar: ,
+    //     bottomNavigationBar: ,
+    //     drawer: ,
+    //   ),
+    // );
+return
+    CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         middle: Text(_screenTitles[_selectedIndex]),
         leading: GestureDetector(
