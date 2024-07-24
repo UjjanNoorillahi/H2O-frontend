@@ -18,18 +18,18 @@ class _CalanderScreenState extends State<CalanderScreen> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(
-        middle: const Text('Calander'),
-        leading: CupertinoNavigationBarBackButton(
-          onPressed: () {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                builder: (context) => const Home(),
-              ),
-            );
-          },
-        ),
-      ),
+      // navigationBar: CupertinoNavigationBar(
+      //   middle: const Text('Calander'),
+      //   leading: CupertinoNavigationBarBackButton(
+      //     onPressed: () {
+      //       Navigator.of(context).pushReplacement(
+      //         MaterialPageRoute(
+      //           builder: (context) => const Home(),
+      //         ),
+      //       );
+      //     },
+      //   ),
+      // ),
       child: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -37,24 +37,25 @@ class _CalanderScreenState extends State<CalanderScreen> {
               SizedBox(height: 16), // Provide some spacing
               // Text('Profile features coming soon...', style: CupertinoTheme.of(context).textTheme.navLargeTitleTextStyle),
               SizedBox(height: 20), // Provide some spacing before the calendar
-              TableCalendar(
-                firstDay: DateTime.utc(2010, 10, 16),
-                lastDay: DateTime.utc(2030, 3, 14),
-                focusedDay: _focusedDay,
-                calendarFormat: _calendarFormat,
-                selectedDayPredicate: (day) {
-                  return isSameDay(_selectedDay, day);
-                },
-                onDaySelected: (selectedDay, focusedDay) {
-                  setState(() {
-                    _selectedDay = selectedDay;
-                    _focusedDay = focusedDay; // update `_focusedDay` to control the calendar
-                  });
-                },
-                onPageChanged: (focusedDay) {
-                  _focusedDay = focusedDay;
-                },
-              ),
+              // TableCalendar(
+              //   firstDay: DateTime.utc(2010, 10, 16),
+              //   lastDay: DateTime.utc(2030, 3, 14),
+              //   focusedDay: _focusedDay,
+              //   calendarFormat: _calendarFormat,
+              //   selectedDayPredicate: (day) {
+              //     return isSameDay(_selectedDay, day);
+              //   },
+              //   onDaySelected: (selectedDay, focusedDay) {
+              //     setState(() {
+              //       _selectedDay = selectedDay;
+              //       _focusedDay =
+              //           focusedDay; // update `_focusedDay` to control the calendar
+              //     });
+              //   },
+              //   onPageChanged: (focusedDay) {
+              //     _focusedDay = focusedDay;
+              //   },
+              // ),
             ],
           ),
         ),

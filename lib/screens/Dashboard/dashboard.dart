@@ -353,35 +353,31 @@ class DashboardScreen extends StatefulWidget {
   State<DashboardScreen> createState() => _DashboardScreenState();
 }
 
-
 String token = '';
 initState() {
   getToken();
 }
 
 getToken() async {
-
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   String? userToken = prefs.getString('userToken');
   token = userToken!;
   print(token);
 }
+
 class _DashboardScreenState extends State<DashboardScreen> {
-
-
-
   final EventRepository eventRepository = EventRepository(EventService());
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       // add navigation back button
 
-
-      child:   FutureBuilder<List<Event>>(
+      child: FutureBuilder<List<Event>>(
         future: eventRepository.getEvents(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CupertinoActivityIndicator(
+            return const Center(
+                child: CupertinoActivityIndicator(
               radius: 17,
               color: Colors.black,
             ));
@@ -393,14 +389,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
               itemBuilder: (context, index) {
                 Event event = snapshot.data![index];
 
-                String isoDate =  event.date.toString();
+                String isoDate = event.date.toString();
                 DateTime date = DateTime.parse(isoDate);
 
                 // Set up the format you want
-                DateFormat formatter = DateFormat('MM-dd-yyyy');  // Example: 2024-02-22
+                DateFormat formatter =
+                    DateFormat('MM-dd-yyyy'); // Example: 2024-02-22
                 String formattedDate = formatter.format(date);
 
-                print(formattedDate);  // Output: 2024-02-22
+                print(formattedDate); // Output: 2024-02-22
                 return Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: GestureDetector(
@@ -408,7 +405,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => EventDetailsScreen(event: event),
+                          builder: (context) =>
+                              EventDetailsScreen(event: event),
                         ),
                       );
                     },
@@ -428,17 +426,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                 decoration: const BoxDecoration(
                                   color: Colors.black,
                                   borderRadius:
-                                  BorderRadius.all(Radius.circular(30)),
+                                      BorderRadius.all(Radius.circular(30)),
                                 ),
-                                height: MediaQuery.of(context).size.height / 4.2,
+                                height:
+                                    MediaQuery.of(context).size.height / 4.2,
                                 child: Container(
                                   // child: NetworkImage,
-                                  child: Image.network(
-                                      event.images.isEmpty ? "https://res.cloudinary.com/dx3kgoad5/image/upload/v1707300650/images/1707300647385.webp" :event.images[0].toString()
-                                    // 'https://res.cloudinary.com/dx3kgoad5/image/upload/v1715459813/images/1715459813550.png,',
-                                    // height: 300,
-                                    // width: 350,
-                                  ),
+                                  child: Image.network(event.images.isEmpty
+                                          ? "https://res.cloudinary.com/dx3kgoad5/image/upload/v1707300650/images/1707300647385.webp"
+                                          : event.images[0].toString()
+                                      // 'https://res.cloudinary.com/dx3kgoad5/image/upload/v1715459813/images/1715459813550.png,',
+                                      // height: 300,
+                                      // width: 350,
+                                      ),
                                 )),
                             Expanded(
                               child: Container(
@@ -457,19 +457,21 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                     width: 2.0, // Set the border width
                                   ),
                                 ),
-                                child:  Column(
+                                child: Column(
                                   children: [
                                     Text(
-                                      event.title.toString(), overflow: TextOverflow.ellipsis, maxLines: 1,
+                                      event.title.toString(),
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 1,
                                       style: const TextStyle(
                                         fontSize: 20,
                                         fontFamily: primaryFont,
                                         fontWeight: FontWeight.w400,
                                       ),
                                     ),
-
                                     Padding(
-                                      padding: const EdgeInsets.only(left: 10.0),
+                                      padding:
+                                          const EdgeInsets.only(left: 10.0),
                                       child: Align(
                                         alignment: Alignment.centerLeft,
                                         child: Text(
@@ -482,30 +484,27 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                         ),
                                       ),
                                     ),
-
-
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 17.0),
-                                      child: Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                          event.time.toString(),
-                                          style: const TextStyle(
-                                            fontSize: 20,
-                                            fontFamily: primaryFont,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-
+                                    // Padding(
+                                    //   padding:
+                                    //       const EdgeInsets.only(left: 17.0),
+                                    //   child: Align(
+                                    //     alignment: Alignment.centerLeft,
+                                    //     child: Text(
+                                    //       event.time.toString(),
+                                    //       style: const TextStyle(
+                                    //         fontSize: 20,
+                                    //         fontFamily: primaryFont,
+                                    //         fontWeight: FontWeight.w400,
+                                    //       ),
+                                    //     ),
+                                    //   ),
+                                    // ),
                                   ],
                                 ),
                               ),
                             )
                           ],
-                        )
-                    ),
+                        )),
                   ),
                 );
               },

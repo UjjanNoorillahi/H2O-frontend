@@ -120,7 +120,7 @@ class _LoginScreenState extends State<LoginScreen> {
   void getUserData(authToken) async {
     UserDataService userDataService = UserDataService();
 
-    UserData? userData = await userDataService.getUserData("" , authToken);
+    UserData? userData = await userDataService.getUserData("", authToken);
 
     if (userData != null) {
       // store user data into sharedPreference
@@ -215,17 +215,6 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(
                 height: 18,
               ),
-              // PrimaryButton(
-              //   text: "Sign In", color: Colors.black,
-              //   onPressed: () => performLogin(
-              //       _emailController.text, _passwordController.text),
-              //   // Navigator.of(context).pushReplacement(
-              //   //   MaterialPageRoute(
-              //   //     builder: (context) => ChooseGender(),
-              //   //   ),
-              //   // );
-              //   textColor: Colors.white,
-              // ),
 
               // custom Sign in button
               Container(
@@ -277,56 +266,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     "Don't have an account? Sign Up",
                     style: TextStyle(color: Colors.black),
                   )),
-              // const SizedBox(
-              //   height: 10,
-              // ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children: [
-              //     Container(
-              //       width: 94,
-              //       height: 0.50,
-              //       decoration: BoxDecoration(
-              //         color: Colors.black.withOpacity(0.4000000059604645),
-              //       ),
-              //     ),
-              //     const SizedBox(
-              //       width: 10,
-              //     ),
-              //     const Text(
-              //       "OR Sign In with",
-              //       style: TextStyle(color: Colors.black),
-              //     ),
-              //     const SizedBox(
-              //       width: 10,
-              //     ),
-              //     Container(
-              //       width: 94,
-              //       height: 0.50,
-              //       decoration: BoxDecoration(
-              //         color: Colors.black.withOpacity(0.4000000059604645),
-              //       ),
-              //     ),
-              //   ],
-              // ),
-              // const SizedBox(
-              //   height: 24,
-              // ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children: [
-              //     Image.asset("assets/logo/apple_icon.png"),
-              //     const SizedBox(width: 20),
-              //     Image.asset("assets/logo/google_icon.png"),
-              //   ],
-              // ),
-
-              // const SizedBox(
-              //   height: 50,
-              // ),
-              // Container(
-              //   child: const Text("Terms of use  Privacy Policy"),
-              // )
             ],
           ),
         ),

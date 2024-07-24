@@ -30,12 +30,16 @@ class CupertinoDrawer extends StatelessWidget {
             ),
             Container(
               color: CupertinoColors.black,
-
               child: Row(
                 children: [
-                  Container(child: Image.asset('assets/logo/logo.png', height: 100, width: 80)),
-                  const Text('H2OEvents', style: TextStyle(color: CupertinoColors.white, fontSize: 24, fontWeight: FontWeight.bold)),
-
+                  Container(
+                      child: Image.asset('assets/logo/logo.png',
+                          height: 100, width: 80)),
+                  const Text('H2OEvents',
+                      style: TextStyle(
+                          color: CupertinoColors.white,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold)),
                 ],
               ),
             ),
@@ -46,11 +50,15 @@ class CupertinoDrawer extends StatelessWidget {
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
-
                 children: [
-                  Icon(CupertinoIcons.moon_stars_fill, color: CupertinoColors.white),
+                  Icon(CupertinoIcons.moon_stars_fill,
+                      color: CupertinoColors.white),
                   SizedBox(width: 10),
-                  Text('View Event', style: TextStyle(color: CupertinoColors.white, fontSize: 19, fontWeight: FontWeight.bold)),
+                  Text('View Event',
+                      style: TextStyle(
+                          color: CupertinoColors.white,
+                          fontSize: 19,
+                          fontWeight: FontWeight.bold)),
                 ],
               ),
             ),
@@ -64,7 +72,7 @@ class CupertinoDrawer extends StatelessWidget {
                 );
               },
               child: GestureDetector(
-                onTap: (){
+                onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) => const BookedEventsScreen(),
@@ -73,11 +81,14 @@ class CupertinoDrawer extends StatelessWidget {
                 },
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.start,
-
                   children: [
                     Icon(CupertinoIcons.tickets, color: CupertinoColors.white),
                     SizedBox(width: 10),
-                    Text('Booked Event', style: TextStyle(color: CupertinoColors.white, fontSize: 19, fontWeight: FontWeight.bold)),
+                    Text('Booked Event',
+                        style: TextStyle(
+                            color: CupertinoColors.white,
+                            fontSize: 19,
+                            fontWeight: FontWeight.bold)),
                   ],
                 ),
               ),
@@ -85,34 +96,39 @@ class CupertinoDrawer extends StatelessWidget {
 
             CupertinoButton(
               onPressed: () {
-                Navigator.pop(context);
+                // Navigator.pop(context);
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
-
                 children: [
                   Icon(CupertinoIcons.timer, color: CupertinoColors.white),
                   SizedBox(width: 10),
-                  Text('Past Event', style: TextStyle(color: CupertinoColors.white, fontSize: 19, fontWeight: FontWeight.bold)),
+                  Text('Past Event',
+                      style: TextStyle(
+                          color: CupertinoColors.white,
+                          fontSize: 19,
+                          fontWeight: FontWeight.bold)),
                 ],
               ),
             ),
             CupertinoButton(
               onPressed: () async {
-
-                final SharedPreferences prefs = await SharedPreferences.getInstance();
+                final SharedPreferences prefs =
+                    await SharedPreferences.getInstance();
                 prefs.remove('userToken');
                 Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => LoginScreen())
-                );
+                    MaterialPageRoute(builder: (context) => LoginScreen()));
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
-
                 children: [
                   Icon(Icons.logout, color: CupertinoColors.white),
                   SizedBox(width: 10),
-                  Text('Logout', style: TextStyle(color: CupertinoColors.white, fontSize: 19, fontWeight: FontWeight.bold)),
+                  Text('Logout',
+                      style: TextStyle(
+                          color: CupertinoColors.white,
+                          fontSize: 19,
+                          fontWeight: FontWeight.bold)),
                 ],
               ),
             ),
