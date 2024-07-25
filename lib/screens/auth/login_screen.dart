@@ -147,8 +147,9 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     final authTokenProvider = Provider.of<AuthTokenProvider>(context);
 
-    return CupertinoPageScaffold(
-      child: SingleChildScrollView(
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SingleChildScrollView(
         child: Center(
           child: Column(
             children: [
@@ -238,7 +239,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: isLogin
                       ? const CupertinoActivityIndicator(
                           radius: 15,
-                          color: Colors.white,
+                          color: Color.fromARGB(255, 255, 255, 255),
                         )
                       : const Text(
                           "Sign In",

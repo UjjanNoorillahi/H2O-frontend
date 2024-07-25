@@ -108,7 +108,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         email: email,
         password: password,
         phoneNumber: phoneNumber,
-          role: role,
+        role: role,
       );
 
       // Call the API
@@ -129,19 +129,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
       //   setState(() {});
       // }
 
-       if (success == true) {
-
-
-           toastification.show(
-             context: context,
-             title: Text('Signup successful!'),
-             autoCloseDuration: const Duration(seconds: 2),
-           );
+      if (success == true) {
+        toastification.show(
+          context: context,
+          title: Text('Signup successful!'),
+          autoCloseDuration: const Duration(seconds: 2),
+        );
         print(success);
         isSignUp = false;
         setState(() {});
         print("Signup successful!");
-
 
         // Add your navigation logic here
         Navigator.of(context).pushReplacement(
@@ -201,9 +198,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
+    return Scaffold(
       backgroundColor: Colors.black,
-      child: Center(
+      body: Center(
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -232,6 +229,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 style: TextStyle(
                     fontFamily: 'Adamina',
                     fontSize: 24,
+                    color: Colors.white,
                     fontWeight: FontWeight.w400),
               ),
               const SizedBox(height: 18),
@@ -386,11 +384,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   Padding(
                     padding: const EdgeInsets.only(left: 28, right: 28),
                     child: CupertinoTextField(
-                        placeholder: 'Birthdate',
+                      placeholder: 'Birthdate',
                       placeholderStyle: TextStyle(
                         color: Colors.white.withOpacity(0.6),
                       ),
-
                       style: TextStyle(color: Colors.white),
                       readOnly: true,
                       onTap: () => _selectDate(context),
@@ -418,50 +415,42 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     height: 16,
                   ),
 
-
-
-
-
-
-
-         Padding(
-        padding: const EdgeInsets.only(left: 28, right: 28),
-        child: CupertinoButton(
-        padding: EdgeInsets.zero,
-        onPressed: _showCupertinoPicker,
-        child: Container(
-        height: 48, // Set the height
-        decoration: BoxDecoration(
-        border: Border.all(
-        color: Colors.white,
-        width: 2.0,
-        ),
-        borderRadius: BorderRadius.circular(15.0),
-        ),
-        child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-        Padding(
-        padding: const EdgeInsets.only(left: 8.0),
-        child: Text(
-        selectedValue,
-        style: TextStyle(color: Colors.white),
-        ),
-        ),
-        Padding(
-        padding: const EdgeInsets.only(right: 8.0),
-        child: Icon(Icons.arrow_drop_down_rounded, color: Colors.white.withOpacity(0.7), size: 30),
-        ),
-        ],
-        ),
-        ),
-        ),
-        ),
-
-
-
-
-          ],
+                  Padding(
+                    padding: const EdgeInsets.only(left: 28, right: 28),
+                    child: CupertinoButton(
+                      padding: EdgeInsets.zero,
+                      onPressed: _showCupertinoPicker,
+                      child: Container(
+                        height: 48, // Set the height
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.white,
+                            width: 2.0,
+                          ),
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Text(
+                                selectedValue,
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 8.0),
+                              child: Icon(Icons.arrow_drop_down_rounded,
+                                  color: Colors.white.withOpacity(0.7),
+                                  size: 30),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(
                 height: 18,
