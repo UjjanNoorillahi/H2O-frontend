@@ -123,9 +123,15 @@ class _HomeState extends State<Home> {
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.black,
+        showSelectedLabels: true,
+        showUnselectedLabels: true,
+        backgroundColor: Colors.white, // Ensure a contrasting background color
         selectedItemColor: Colors.black, // Color for selected item
         unselectedItemColor: Colors.grey, // Color for unselected items
+        selectedLabelStyle: const TextStyle(
+          color: Colors.black,
+        ),
+
         currentIndex: _selectedIndex,
         onTap: (index) {
           setState(() {
