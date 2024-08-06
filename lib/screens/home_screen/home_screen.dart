@@ -22,22 +22,21 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  bool _isDrawerOpen = false;
   int _selectedIndex = 0;
+  final _screens = [
+    const DashboardScreen(),
+    const EventScreen(),
+    const CalanderScreen(),
+    const ProfileScreen(),
+  ];
 
   List<String> _screenTitles = ['Home', 'Events', 'Calendar', 'Profile'];
 
   void _toggleDrawer() {
-    setState(() {
-      _isDrawerOpen = !_isDrawerOpen;
-    });
-  }
-
-  void _closeDrawer() {
-    if (_isDrawerOpen) {
-      setState(() {
-        _isDrawerOpen = false;
-      });
+    if (_scaffoldKey.currentState!.isDrawerOpen) {
+      _scaffoldKey.currentState!.closeDrawer();
+    } else {
+      _scaffoldKey.currentState!.openDrawer();
     }
   }
 
@@ -72,12 +71,12 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: Text(_screenTitles[_selectedIndex]),
         leading: IconButton(
-          icon: Icon(Icons.menu),
+          icon: const Icon(Icons.menu),
           onPressed: _toggleDrawer,
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.logout_sharp, color: Colors.black),
+            icon: const Icon(Icons.logout_sharp, color: Colors.black),
             onPressed: () async {
               final SharedPreferences prefs =
                   await SharedPreferences.getInstance();
@@ -92,36 +91,9 @@ class _HomeState extends State<Home> {
           ),
         ],
       ),
-      body: Stack(
-        children: [
-          GestureDetector(
-            onTap: _closeDrawer, // Close drawer when tapping outside
-            child: IndexedStack(
-              index: _selectedIndex,
-              children: [
-                DashboardScreen(),
-                EventScreen(),
-                CalanderScreen(),
-                ProfileScreen(),
-              ],
-            ),
-          ),
-          AnimatedPositioned(
-            duration: Duration(milliseconds: 300),
-            left: _isDrawerOpen ? 0 : -250,
-            top: 0,
-            bottom: 0,
-            child: GestureDetector(
-              onHorizontalDragEnd: (details) {
-                if (details.primaryVelocity! > 0) {
-                  _closeDrawer(); // Swipe to the right to close
-                }
-              },
-              child: CupertinoDrawer(),
-            ),
-          ),
-        ],
-      ),
+      body: _screens[_selectedIndex],
+
+      drawer: CupertinoDrawer(),
       bottomNavigationBar: BottomNavigationBar(
         showSelectedLabels: true,
         showUnselectedLabels: true,

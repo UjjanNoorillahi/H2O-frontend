@@ -126,11 +126,7 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                builder: (context) => const Home(),
-              ),
-            );
+            Navigator.of(context).pop();
           },
         ),
       ),

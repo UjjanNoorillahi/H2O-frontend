@@ -30,7 +30,8 @@ class _BookedEventDetailsScreenState extends State<BookedEventDetailsScreen> {
         middle: Text('Event Details'),
         leading: CupertinoNavigationBarBackButton(
           onPressed: () {
-            Navigator.of(context).pushReplacement(
+            Navigator.of(context).
+            pushReplacement(
               MaterialPageRoute(
                 builder: (context) => const Home(),
               ),

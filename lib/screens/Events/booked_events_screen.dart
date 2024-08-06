@@ -50,12 +50,7 @@ class _BookedEventsScreenState extends State<BookedEventsScreen> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => Home(),
-              ),
-            );
+            Navigator.of(context).pop();
           },
         ),
       ),
