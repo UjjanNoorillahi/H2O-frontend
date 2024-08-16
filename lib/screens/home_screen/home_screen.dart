@@ -69,14 +69,15 @@ class _HomeState extends State<Home> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: Text(_screenTitles[_selectedIndex]),
+        title: Text(_screenTitles[_selectedIndex],style: const TextStyle(color: Colors.white),),
+        backgroundColor: Colors.black,
         leading: IconButton(
-          icon: const Icon(Icons.menu),
+          icon: const Icon(Icons.menu, color: Colors.white,),
           onPressed: _toggleDrawer,
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.logout_sharp, color: Colors.black),
+            icon: const Icon(Icons.logout_sharp, color: Colors.white),
             onPressed: () async {
               final SharedPreferences prefs =
                   await SharedPreferences.getInstance();

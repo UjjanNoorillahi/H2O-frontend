@@ -40,9 +40,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
   final EventRepository eventRepository = EventRepository(EventService());
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-      // add navigation back button
-
+    return
+     CupertinoPageScaffold(
       child: FutureBuilder<List<Event>>(
         future: eventRepository.getEvents(),
         builder: (context, snapshot) {
