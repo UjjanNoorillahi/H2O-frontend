@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:h2o/screens/Events/admin/admin_home_screen.dart';
 // import 'package:fluttertoast/fluttertoast.dart';
 import 'package:h2o/screens/auth/sign_up_screen.dart';
 import 'package:h2o/screens/home_screen/home_screen.dart';
@@ -86,12 +87,21 @@ class _LoginScreenState extends State<LoginScreen> {
           isLogin = false;
           toggleLogin();
 
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(
-              builder: (context) => Home(),
-              // builder: (context) => FindFriendsScreen(),
-            ),
-          );
+          if (loginResponse.role != 'admin') {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (context) => Home(),
+                // builder: (context) => FindFriendsScreen(),
+              ),
+            );
+          } else {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (context) => AdminHomeScreen(),
+                // builder: (context) => FindFriendsScreen(),
+              ),
+            );
+          }
 
           // getUserData(loginResponse.token);
           // } else {
