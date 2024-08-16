@@ -1,42 +1,42 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:h2o/Services/user_data_service.dart';
+import 'package:h2o/models/user_data_model.dart';
+import 'package:h2o/screens/CalanderScreen/calander_screen.dart';
+import 'package:h2o/screens/Dashboard/dashboard.dart';
 import 'package:h2o/screens/Events/Repository%20/get_event_repository.dart';
+import 'package:h2o/screens/Events/events_screen.dart';
+import 'package:h2o/screens/Events/service/get_event_service.dart';
+import 'package:h2o/screens/Events/widgets/drawer.dart';
+import 'package:h2o/screens/auth/login_screen.dart';
+import 'package:h2o/screens/profile_screen/profile_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../Services/user_data_service.dart';
-import '../../models/user_data_model.dart';
-import '../CalanderScreen/calander_screen.dart';
-import '../Dashboard/dashboard.dart';
-import '../Events/events_screen.dart';
-import '../Events/service/get_event_service.dart';
-import '../Events/widgets/drawer.dart';
-import '../auth/login_screen.dart';
-import '../profile_screen/profile_screen.dart';
-
-class Home extends StatefulWidget {
-  const Home({super.key});
+class AdminHomeScreen extends StatefulWidget {
+  const AdminHomeScreen({super.key});
 
   @override
-  State<Home> createState() => _HomeState();
+  State<AdminHomeScreen> createState() => _AdminHomeScreenState();
 }
 
-class _HomeState extends State<Home> {
+class _AdminHomeScreenState extends State<AdminHomeScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  bool _isDrawerOpen = false;
   int _selectedIndex = 0;
-  final _screens = [
-    const DashboardScreen(),
-    const EventScreen(),
-    const CalanderScreen(),
-    const ProfileScreen(),
-  ];
 
   List<String> _screenTitles = ['Home', 'Events', 'Calendar', 'Profile'];
 
   void _toggleDrawer() {
-    if (_scaffoldKey.currentState!.isDrawerOpen) {
-      _scaffoldKey.currentState!.closeDrawer();
-    } else {
-      _scaffoldKey.currentState!.openDrawer();
+    setState(() {
+      _isDrawerOpen = !_isDrawerOpen;
+    });
+  }
+
+  void _closeDrawer() {
+    if (_isDrawerOpen) {
+      setState(() {
+        _isDrawerOpen = false;
+      });
     }
   }
 
@@ -91,9 +91,37 @@ class _HomeState extends State<Home> {
           ),
         ],
       ),
-      body: _screens[_selectedIndex],
-      drawer: CupertinoDrawer(
-        adminRole: false,
+      body: Stack(
+        children: [
+          GestureDetector(
+            onTap: _closeDrawer, // Close drawer when tapping outside
+            child: IndexedStack(
+              index: _selectedIndex,
+              children: const [
+                DashboardScreen(),
+                EventScreen(),
+                CalanderScreen(),
+                ProfileScreen(),
+              ],
+            ),
+          ),
+          AnimatedPositioned(
+            duration: const Duration(milliseconds: 300),
+            left: _isDrawerOpen ? 0 : -250,
+            top: 0,
+            bottom: 0,
+            child: GestureDetector(
+              onHorizontalDragEnd: (details) {
+                if (details.primaryVelocity! > 0) {
+                  _closeDrawer(); // Swipe to the right to close
+                }
+              },
+              child: CupertinoDrawer(
+                adminRole: true,
+              ),
+            ),
+          ),
+        ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         showSelectedLabels: true,
