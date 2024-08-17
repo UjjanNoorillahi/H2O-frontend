@@ -31,7 +31,7 @@ class _EventScreenState extends State<EventScreen> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     String? userToken = prefs.getString('userToken');
     setState(() {
-      token = userToken!;
+      token = userToken ?? '';
     });
   }
 

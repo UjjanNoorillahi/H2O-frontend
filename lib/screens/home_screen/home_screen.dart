@@ -25,10 +25,10 @@ class _HomeState extends State<Home> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   int _selectedIndex = 0;
   List _screens = [
-            const EventScreen(),
-            const CalanderScreen(),
-            const ProfileScreen(),
-          ];
+    const EventScreen(),
+    const CalanderScreen(),
+    const ProfileScreen(),
+  ];
 
   String? userRole;
 
@@ -61,7 +61,7 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-   _screens = widget.isAdmin
+    _screens = widget.isAdmin
         ? [
             const DashboardScreen(),
             const EventScreen(),
@@ -91,12 +91,11 @@ class _HomeState extends State<Home> {
         title: Text(
           _screenTitles[_selectedIndex],
           style: const TextStyle(
-                    fontSize: 22,
-                    fontFamily: 'Adamina-Regular',
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white),
-              ),
-        
+              fontSize: 22,
+              fontFamily: 'Adamina-Regular',
+              fontWeight: FontWeight.w600,
+              color: Colors.white),
+        ),
         backgroundColor: Colors.black,
         leading: IconButton(
           icon: const Icon(Icons.menu, color: Colors.white),
@@ -108,7 +107,7 @@ class _HomeState extends State<Home> {
             onPressed: () async {
               final SharedPreferences prefs =
                   await SharedPreferences.getInstance();
-              prefs.remove('userToken');
+              prefs.clear();
 
               Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(
@@ -148,7 +147,6 @@ class _HomeState extends State<Home> {
           BottomNavigationBarItem(
             icon: Icon(Icons.event),
             label: "Events",
-            
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.calendar_today),

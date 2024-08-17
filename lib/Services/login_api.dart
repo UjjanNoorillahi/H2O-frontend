@@ -34,7 +34,7 @@ class AuthService {
         // Save the user object in SharedPreferences.
         prefs.setString('data', json.encode(responseData['data']));
         prefs.setString('userID', json.encode(responseData['user']['_id']));
-        prefs.setString('role', json.encode(responseData['user']['role']));
+        prefs.setString('role', responseData['user']['role']);
 
         //////////////////////
         // print(responseData.toString());

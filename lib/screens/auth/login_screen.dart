@@ -89,7 +89,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => Home(isAdmin: loginResponse.role == 'admin'),
+                builder: (context) => Home(isAdmin: false
+                //loginResponse.role == 'admin'
+                ),
                 // builder: (context) => FindFriendsScreen(),
               ),
             );
