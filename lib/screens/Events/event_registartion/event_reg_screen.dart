@@ -72,9 +72,18 @@ class _EventRegistrationScreenState extends State<EventRegistrationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Create Event'),
+          title:const Text(
+          "Create Event",
+          style: TextStyle(
+                    fontSize: 22,
+                    fontFamily: 'Arial',
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white),
+              ),
+        
+        backgroundColor: Colors.black,
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
+            icon: const Icon(Icons.arrow_back,color: Colors.white,),
             onPressed: () {
               Navigator.of(context).pop();
             },
@@ -108,7 +117,7 @@ class _EventRegistrationScreenState extends State<EventRegistrationScreen> {
                 const SizedBox(
                   height: 20,
                 ),
-                Text(
+                const Text(
                   "Event Date",
                   style: TextStyle(
                     color: Colors.black,
@@ -122,7 +131,7 @@ class _EventRegistrationScreenState extends State<EventRegistrationScreen> {
                   placeholderStyle: TextStyle(
                     color: Colors.white.withOpacity(0.6),
                   ),
-                  style: TextStyle(color: Colors.white),
+                  style: const TextStyle(color: Colors.white),
                   readOnly: true,
                   onTap: () => _selectDate(context),
                   decoration: BoxDecoration(
@@ -149,7 +158,7 @@ class _EventRegistrationScreenState extends State<EventRegistrationScreen> {
                   fontFamily: primaryFont,
                   // Optionally override other parameters if needed
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 CustomLabeledTextFormField(
@@ -158,7 +167,7 @@ class _EventRegistrationScreenState extends State<EventRegistrationScreen> {
                   fontFamily: primaryFont,
                   // Optionally override other parameters if needed
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 CustomLabeledTextFormField(
@@ -167,7 +176,7 @@ class _EventRegistrationScreenState extends State<EventRegistrationScreen> {
                   fontFamily: primaryFont,
                   // Optionally override other parameters if needed
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
               ],

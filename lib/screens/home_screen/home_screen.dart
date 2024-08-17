@@ -90,8 +90,13 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: Text(
           _screenTitles[_selectedIndex],
-          style: const TextStyle(color: Colors.white),
-        ),
+          style: const TextStyle(
+                    fontSize: 22,
+                    fontFamily: 'Adamina-Regular',
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white),
+              ),
+        
         backgroundColor: Colors.black,
         leading: IconButton(
           icon: const Icon(Icons.menu, color: Colors.white),
@@ -143,6 +148,7 @@ class _HomeState extends State<Home> {
           BottomNavigationBarItem(
             icon: Icon(Icons.event),
             label: "Events",
+            
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.calendar_today),

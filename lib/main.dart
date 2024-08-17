@@ -18,8 +18,10 @@ void main() {
   ]).then((_) async {
     final prefs = await SharedPreferences.getInstance();
     final userJsonString = prefs.getString('data');
+    final role = prefs.getString('role');
 
     runApp(MyApp(
+      role: role ?? '',
       initialRoute: userJsonString != null ? 'home' : 'login',
     ));
   });
@@ -27,10 +29,12 @@ void main() {
 
 class MyApp extends StatelessWidget {
   final String initialRoute;
+  final String role;
 
   const MyApp({
     super.key,
     required this.initialRoute,
+    required this.role,
   });
 
   @override
@@ -46,7 +50,11 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.light,
           primarySwatch: Colors.blue,
         ),
-        home: initialRoute == 'login' ? const SplashScreen() :  Home(isAdmin: true,),
+        home: initialRoute == 'login'
+            ? const SplashScreen()
+            : Home(
+                isAdmin: role == 'admin',
+              ),
       ),
     );
   }
