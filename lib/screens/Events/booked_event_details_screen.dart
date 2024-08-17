@@ -33,7 +33,7 @@ class _BookedEventDetailsScreenState extends State<BookedEventDetailsScreen> {
             Navigator.of(context).
             pushReplacement(
               MaterialPageRoute(
-                builder: (context) => const Home(),
+                builder: (context) =>  Home(isAdmin: false,),
               ),
             );
           },

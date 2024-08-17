@@ -8,6 +8,7 @@ import 'package:h2o/screens/Events/admin/admin_home_screen.dart';
 import 'package:h2o/screens/auth/sign_up_screen.dart';
 import 'package:h2o/screens/home_screen/home_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toastification/toastification.dart';
 
 import '../../Services/login_api.dart';
@@ -83,30 +84,15 @@ class _LoginScreenState extends State<LoginScreen> {
         if (loginResponse != null) {
           print(loginResponse.toString());
           toggleLogin();
-          print("Login successful!");
           isLogin = false;
           toggleLogin();
 
-          if (loginResponse.role != 'admin') {
-            Navigator.of(context).pushReplacement(
+            Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => Home(),
+                builder: (context) => Home(isAdmin: loginResponse.role == 'admin'),
                 // builder: (context) => FindFriendsScreen(),
               ),
             );
-          } else {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                builder: (context) => AdminHomeScreen(),
-                // builder: (context) => FindFriendsScreen(),
-              ),
-            );
-          }
-
-          // getUserData(loginResponse.token);
-          // } else {
-          //   print("Login failed.");
-          //   // Add error handling or display an error message
         } else if (loginResponse?.message != 'Login successful') {
           toastification.show(
             context: context,

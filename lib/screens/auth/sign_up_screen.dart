@@ -143,7 +143,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         // Add your navigation logic here
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
-            builder: (context) => Home(),
+            builder: (context) => Home(isAdmin: role == 'admin',),
           ),
         );
       } else {

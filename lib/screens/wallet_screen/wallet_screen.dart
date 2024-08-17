@@ -23,7 +23,7 @@ class _WalletScreenState extends State<WalletScreen> {
             onPressed: () {
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
-                  builder: (context) => const Home(),
+                  builder: (context) =>  Home(isAdmin: false,),
                 ),
               );
             },

@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.light,
           primarySwatch: Colors.blue,
         ),
-        home: initialRoute == 'login' ? const SplashScreen() : const Home(),
+        home: initialRoute == 'login' ? const SplashScreen() :  Home(isAdmin: true,),
       ),
     );
   }

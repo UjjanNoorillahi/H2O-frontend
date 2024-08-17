@@ -39,7 +39,7 @@ class _MySpendingState extends State<MySpending> {
             onPressed: () {
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
-                  builder: (context) => const Home(),
+                  builder: (context) =>  Home(isAdmin: false,),
                 ),
               );
             },

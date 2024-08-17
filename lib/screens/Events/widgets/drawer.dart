@@ -65,7 +65,7 @@ class CupertinoDrawer extends StatelessWidget {
             ),
 
             // create event button only for admins
-            adminRole!
+            adminRole
                 ? TextButton(
                     onPressed: () {
                       // Implement the action for Past Event
