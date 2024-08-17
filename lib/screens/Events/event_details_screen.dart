@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
@@ -23,10 +24,11 @@ class EventDetailsScreen extends StatefulWidget {
 class _EventDetailsScreenState extends State<EventDetailsScreen> {
   Map<String, dynamic>? paymentIntent;
 
-  void makePayment(BuildContext context) async {
+  void makePayment(BuildContext context, String price) async {
     try {
       log('Inside make payment');
-      paymentIntent = await _createTestPaymentSheet();
+      
+      paymentIntent = await _createTestPaymentSheet(price);
       log('Payment Intent created: $paymentIntent');
 
       var gpay = const PaymentSheetGooglePay(
@@ -81,16 +83,14 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
     }
   }
 
-  _createTestPaymentSheet() async {
+  _createTestPaymentSheet(price) async {
     // 1. Create a PaymentIntent on the server
     final url = Uri.parse('https://api.stripe.com/v1/payment_intents');
 
     try {
       Map<String, dynamic> body = {
-        'amount': '1099',
+        'amount': price,
         'currency': 'USD',
-        // 'payment_method_types[]': 'card',
-        // 'capture_method': 'manual',
       };
 
       http.Response response = await http.post(
@@ -260,7 +260,9 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
                     ),
                   ),
                   onPressed: () async {
-                    makePayment(context);
+                    if (widget.event.ticketPrice > 0){
+                      makePayment(context, "${widget.event.ticketPrice * 100}");
+                    }
                   },
                   child: const Text(
                     'Book Ticket',
