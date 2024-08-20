@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:h2o/provider/auth_token_provider.dart';
+import 'package:h2o/screens/Events/event_registartion/event_reg_screen.dart';
 import 'package:h2o/screens/home_screen/home_screen.dart';
 import 'package:h2o/screens/splash_screen/splash_screen.dart';
 import 'package:provider/provider.dart';

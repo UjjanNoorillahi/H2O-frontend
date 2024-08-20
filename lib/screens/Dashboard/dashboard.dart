@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:h2o/res/components/image_with_overlay.dart';
 
 import 'package:h2o/screens/Events/event_details_screen.dart';
@@ -8,15 +7,10 @@ import 'package:h2o/screens/Events/event_registartion/event_reg_screen.dart';
 import 'package:h2o/screens/Events/models/get_event_model_class.dart';
 
 import 'package:h2o/screens/Events/service/get_event_service.dart';
-import 'package:h2o/screens/auth/login_screen.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:socket_io_client/socket_io_client.dart';
-import '';
 
-import '../../constant/const.dart';
 import '../Events/Repository /get_event_repository.dart';
-import '../home_screen/home_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
