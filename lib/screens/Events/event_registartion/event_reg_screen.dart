@@ -39,7 +39,7 @@ class _EventRegistrationScreenState extends State<EventRegistrationScreen> {
   DateTime? selectedDate;
   Duration? selectedValue;
   File? _selectedImage;
-
+  bool _isEventLoading = false;
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? pickedDate = await showCupertinoModalPopup<DateTime>(
@@ -138,6 +138,10 @@ class _EventRegistrationScreenState extends State<EventRegistrationScreen> {
 
 
   Future<void> _submitEvent() async {
+
+    setState(() {
+      _isEventLoading = true;
+    });
     if (_selectedImage != null) {
       final newEvent = await _registerEventService.createEvent(
         title: _eventTitle.text,
@@ -150,6 +154,11 @@ class _EventRegistrationScreenState extends State<EventRegistrationScreen> {
         ticketPrice: int.parse(_priceController.text),
       );
       if (newEvent != null) {
+
+        setState(() {
+          _isEventLoading = false;
+        });
+
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Event created successfully')),
         );
@@ -160,11 +169,17 @@ class _EventRegistrationScreenState extends State<EventRegistrationScreen> {
           ),
         );
       } else {
+        setState(() {
+          _isEventLoading = false;
+        });
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Failed to create event')),
         );
       }
     } else {
+      setState(() {
+        _isEventLoading = false;
+      });
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Please fill all fields and select an image')),
       );
@@ -370,14 +385,44 @@ class _EventRegistrationScreenState extends State<EventRegistrationScreen> {
                 ),
 
 
+
+
                 Center(
-                  child: PrimaryButton(
-                    text: 'Create Event',
-                    color: Colors.black,
-                    textColor: Colors.white,
-                    onPressed: _submitEvent,
+                  child: Container(
+                    width: 295,
+                    height: 56,
+                    decoration: ShapeDecoration(
+                      color: Colors.black,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                    ),
+                    child: ElevatedButton(
+                      onPressed: () => _submitEvent(),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.black,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                      ),
+                      child: _isEventLoading
+                          ? const CupertinoActivityIndicator(
+                        radius: 15,
+                        color: Color.fromARGB(255, 255, 255, 255),
+                      )
+                          : const Text(
+                        "Create Event",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontFamily: 'Adamina-Regular',
+                            fontWeight: FontWeight.w400),
+                      ),
+                    ),
                   ),
                 ),
+
+
                 const SizedBox(
                   height: 20,
                 ),
