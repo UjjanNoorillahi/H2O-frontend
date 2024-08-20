@@ -366,8 +366,6 @@ class _EventRegistrationScreenState extends State<EventRegistrationScreen> {
                   // Optionally override other parameters if needed
                 ),
                 const SizedBox(
-<<<<<<< HEAD
-=======
                   height: 20,
                 ),
 
@@ -381,7 +379,6 @@ class _EventRegistrationScreenState extends State<EventRegistrationScreen> {
                   ),
                 ),
                 const SizedBox(
->>>>>>> upstream/event_reg
                   height: 20,
                 ),
               ],
