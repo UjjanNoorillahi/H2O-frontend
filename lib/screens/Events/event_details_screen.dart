@@ -98,7 +98,8 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
         body: body,
         headers: {
           "Authorization":
-              "Bearer sk_test_51Oda4PHSvDuMR6pwUOCQMIQesEmc3NoE70rrl9S7vansXpxz3FBUzgshEsUrDJTFJMAQaLM4vZAPWvjduXOoDI0J00vpd4Tp7N",
+              "Bearer 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",
+              // "Bearer sk_test_51Oda4PHSvDuMR6pwUOCQMIQesEmc3NoE70rrl9S7vansXpxz3FBUzgshEsUrDJTFJMAQaLM4vZAPWvjduXOoDI0J00vpd4Tp7N",
           "Content-Type": "application/x-www-form-urlencoded",
         },
       );
