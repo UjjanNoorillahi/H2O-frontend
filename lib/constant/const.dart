@@ -12,7 +12,7 @@ const String GET_FRIENDS_DATA = '${BASE_URL}api/user/get-friend-suggestions';
 const String GET_SINGLE_USER_DATA = '${BASE_URL}api/user/';
 const String BUY_TICKET = '${BASE_URL}api/ticket/buy-ticket/';
 const String BOOKED_EVENTS = '${BASE_URL}api/event/booked-events';
-
+const String CREATE_EVENT = '${BASE_URL}api/event/create-event';
 
 
 

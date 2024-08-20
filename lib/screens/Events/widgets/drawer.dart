@@ -71,7 +71,7 @@ class CupertinoDrawer extends StatelessWidget {
                       // Implement the action for Past Event
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) =>
-                              const EventRegistrationScreen()));
+                               EventRegistrationScreen()));
                     },
                     child: const Row(
                       mainAxisAlignment: MainAxisAlignment.start,
